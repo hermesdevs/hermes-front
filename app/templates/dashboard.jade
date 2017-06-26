@@ -1,0 +1,22 @@
+include ./includes/nav.jade
+
+main
+	.header_ever.row.middle-xs
+		h3.white-text Dashboard
+	.progress.transparent(style="margin:0px;")
+		.indeterminate.indigo
+	.content_ever.row.center-xs
+		.col-xs-12.no-padding.loadnow.hide
+			.center-xs.center.align
+				h3.light.grey-text.text-darken-1 Cargando ...
+		.col-xs-12.no-padding.notnetwork.hide
+			.center-xs.center.align
+				h3.light.red-text.text-darken-1 Ocurrio un error
+		.col-xs-11.start-xs.no-padding.table__content.hide
+			ul.collapsible(data-collapsible='accordion' )
+				li(ng-repeat='equipo in equipos')
+					.collapsible-header
+						i.material-icons dvr
+						| {{ equipo.name }}
+					.collapsible-body
+						span Lorem ipsum dolor sit amet.

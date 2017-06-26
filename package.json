@@ -1,0 +1,28 @@
+{
+  "name": "Hermes",
+  "version": "0.1.2",
+  "description": "Hermes te ayuda a administrar redes de una forma sencilla desde diferentes interfaces",
+  "main": "gulpfile.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hermesdevs/hermes-front"
+  },
+  "keywords": [
+    "poster"
+  ],
+  "author": "Jose Alexander",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hermesdevs/hermes-front/issues"
+  },
+  "homepage": "hermesdevs.github.io",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "*",
+    "gulp-jade": "^1.1.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "*",
+    "gulp-sourcemaps": "^2.4.1",
+    "gulp-uglify": "^2.0.0"
+  }
+}

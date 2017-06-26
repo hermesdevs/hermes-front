@@ -1,0 +1,32 @@
+include ./includes/nav.jade
+
+main
+	.header_ever.row.middle-xs
+		h3.white-text Switches
+	.progress.transparent(style="margin:0px;")
+		.indeterminate.indigo
+	.content_ever.row.center-xs
+		.col-xs-12.no-padding.loadnow.hide
+			.center-xs.center.align
+				h3.light.grey-text.text-darken-1 Cargando ...
+		.col-xs-12.no-padding.notnetwork.hide
+			.center-xs.center.align
+				h3.light.red-text.text-darken-1 Ocurrio un error
+		.col-xs-11.start-xs.no-padding.table__content.hide
+			table.bordered
+				thead
+					tr
+						th Nombre
+						th Modelo
+						th SO
+						th IP
+						th.center-xs Opciones
+				tbody
+					tr(ng-repeat='sw in equipos')
+						td {{sw.name}}
+						td {{sw.modelo}}
+						td {{sw.so}}
+						td {{sw.ip}}
+						td.center-xs.white
+							a.btn.blue.darken-1.z-depth-0
+								i.material-icons edit
