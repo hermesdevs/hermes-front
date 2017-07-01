@@ -1,32 +1,95 @@
 include ./includes/nav.jade
 
+ul#dropdown1.dropdown-content
+	li
+		a(href='#!').indigo-text Ordenar con puerto
+	li
+		a(href='#!').indigo-text Ordenar con equipos
+	li
+		a(href='#!').indigo-text Ordenar con servidores
+	li.divider
+	li
+		a(href='#!').indigo-text Ordenar con todo
+
 main
-	.header_ever.row.middle-xs
-		h3.white-text Switches
-	.progress.transparent(style="margin:0px;")
-		.indeterminate.indigo
+	.header_ever.row
+		nav.transparent.z-depth-0.col-xs-6.no-padding
+			.nav-wrapper
+				form
+					.input-field
+						input#search(type='search', placeholder='Buscar Switches' required='' ng-model="busqueda")
+						label.label-icon(for='search')
+							i.material-icons search
+						i.material-icons close
+		nav.transparent.z-depth-0.col-xs-6
+			.nav-wrapper
+				ul.right.hide-on-med-and-down
+					li.right
+						a(href='badges.html')
+							i.material-icons account_circle
+					li.right
+						a(href='badges.html')
+							i.material-icons apps
+		nav.transparent.z-depth-0
+			.nav-wrapper.transparent.z-depth-0
+				ul.hide-on-med-and-down
+					li.left
+						a(href="#" data-activates="slide-out").button-create.btn.white.indigo-text Agrega nuevo
+					li.right
+						a.dropdown-button(data-activates='dropdown1')
+							| Mas opciones
+							i.material-icons.right arrow_drop_down
+					li.right
+						a(href='badges.html')
+							i.material-icons view_list
+					li.right
+						a(href='sass.html')
+							i.material-icons sort_by_alpha
 	.content_ever.row.center-xs
-		.col-xs-12.no-padding.loadnow.hide
-			.center-xs.center.align
-				h3.light.grey-text.text-darken-1 Cargando ...
-		.col-xs-12.no-padding.notnetwork.hide
-			.center-xs.center.align
-				h3.light.red-text.text-darken-1 Ocurrio un error
-		.col-xs-11.start-xs.no-padding.table__content.hide
-			table.bordered
+		.col-xs-12.start-xs.table__content.hide
+			table.highlight
 				thead
 					tr
+						th ID
 						th Nombre
 						th Modelo
 						th SO
 						th IP
-						th.center-xs Opciones
+						th Color
 				tbody
-					tr(ng-repeat='sw in equipos')
+					tr(ng-repeat='sw in switches | filter:busqueda' ui-sref="single_switche({ id: sw.id })" style='cursor:pointer;')
+						td {{sw.id}}
 						td {{sw.name}}
 						td {{sw.modelo}}
 						td {{sw.so}}
 						td {{sw.ip}}
-						td.center-xs.white
-							a.btn.blue.darken-1.z-depth-0
-								i.material-icons edit
+						td {{sw.color}}
+
+ul#slide-out.side-nav
+	.row.col-xs-12.indigo.middle-xs(style='height: 130px;margin-bottom:30px;')
+		.row.col-xs-12
+			h3.light.white-text Crea un switche
+	.row.col-xs-12
+		form.col-xs-12
+			.input-field
+				input(id="name" type="text" placeholder="Nombre" ng-model="sw.name")
+				label#name Nombre del switche
+			.input-field
+				input(id="modelo" type="text" placeholder="Modelo" ng-model="sw.modelo")
+				label#modelo Modelo del switche
+			.input-field
+				input(id="so" type="text" placeholder="SO" ng-model="sw.so")
+				label#so Sistema operativo del switche
+			.input-field
+				input(id="ip" type="text" placeholder="IP" ng-model="sw.ip")
+				label#ip IP del switche
+			.input-field
+				<select class="" material-select multiple watch>
+				<option ng-repeat='eq in equipos' value='{{eq.id}}'>{{ eq.name }}</option>
+				</select>
+			.input-field.row
+				input(type="submit" value="Crear" ng-click="crearSW(sw)").col-xs-12.btn.indigo.white-text
+
+ul#slide-edit.side-nav
+	.row
+		h2.light Editar Switche

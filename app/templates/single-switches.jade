@@ -1,0 +1,66 @@
+include ./includes/nav.jade
+
+main
+	.header_ever.row
+		nav.transparent.z-depth-0.col-xs-6.no-padding
+			.nav-wrapper
+				form
+					.input-field
+						input#search(type='search', placeholder='Buscar en switche conexiones' required='' ng-model="busqueda")
+						label.label-icon(for='search')
+							i.material-icons search
+						i.material-icons close
+		nav.transparent.z-depth-0.col-xs-6
+			.nav-wrapper
+				ul.right.hide-on-med-and-down
+					li.right
+						a(href='badges.html')
+							i.material-icons account_circle
+					li.right
+						a(href='badges.html')
+							i.material-icons apps
+		nav.transparent.z-depth-0
+			.nav-wrapper.transparent.z-depth-0
+				ul.hide-on-med-and-down
+					li.left
+						a(href="#" data-activates="slide-out").button-create.btn.white.indigo-text Editar este Switche
+					li.right
+						a.dropdown-button(data-activates='dropdown1')
+							| Mas opciones
+							i.material-icons.right arrow_drop_down
+					li.right
+						a(href='badges.html')
+							i.material-icons settings_ethernet
+					li.right
+						a(href='sass.html')
+							i.material-icons sort_by_alpha
+	.content_ever.row.center-xs
+		.col-xs-12.start-xs.table__content
+			h4.light.grey-text.text-darken-2 
+				| Nombre del switche: 
+				| {{switche.name}}
+		.row.col-xs-12.no-padding
+			.row.col-md-6.col-xs-12
+				ul.collection.with-header.col-xs-12
+					li.collection-header.start-xs
+						h4 Equipos
+					li.collection-item Alvin
+					li.collection-item Alvin
+					li.collection-item Alvin
+					li.collection-item Alvin
+			.row.col-md-6.col-xs-12
+				ul.collection.with-header.col-xs-12
+					li.collection-header.start-xs
+						h4 Servidores
+					li.collection-item Alvin
+					li.collection-item Alvin
+					li.collection-item Alvin
+					li.collection-item Alvin
+			.row.col-md-6.col-xs-12
+				ul.collection.with-header.col-xs-12
+					li.collection-header.start-xs
+						h4 Switches
+					li.collection-item Alvin
+					li.collection-item Alvin
+					li.collection-item Alvin
+					li.collection-item Alvin

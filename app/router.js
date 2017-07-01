@@ -46,4 +46,9 @@ hermes.config(function($stateProvider , $urlRouterProvider,$httpProvider){
             templateUrl: wherever_we_are() + 'view/switches.html',
             controller:'switches_controller'
         })
+        .state('single_switche', {
+            url: '/switches/:id',
+            templateUrl: wherever_we_are() + 'view/single-switches.html',
+            controller:'single_switches_controller'
+        })
 });
