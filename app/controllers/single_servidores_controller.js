@@ -1,4 +1,4 @@
-hermes.controller("single_switches_controller", function(
+hermes.controller("single_servidores_controller", function(
 	$scope, 
 	$resource,
 	$http,
@@ -16,13 +16,11 @@ hermes.controller("single_switches_controller", function(
 	Query.getSingle(function(sw){
 		$scope.switche = sw.data;
 	});
-	
-	$scope.update = function(datos) {
-		Query.updateDates(datos);
-	}
-	
+
 	$scope.delete = function() {
-		Query.killme();
+		Query.killme(config.databaseURL + config.switches + "/" + $stateParams.id);
+    	Materialize.toast('El Switche se esta eliminando', 4000);
+		$window.location.href="#/switches";
 	}
 	
 });

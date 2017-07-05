@@ -1,23 +1,109 @@
 include ./includes/nav.jade
 
+ul#slide-out.side-nav
+	.row.col-xs-12.indigo.middle-xs(style='height: 130px;margin-bottom:30px;')
+		.row.col-xs-12
+			h3.light.white-text Nuevo equipo
+	.row.col-xs-12
+		form.col-xs-12
+			.input-field
+				input(id="name" type="text" placeholder="Nombre" ng-model="sw.name")
+				label#name Nombre del switche
+			.input-field
+				input(id="modelo" type="text" placeholder="Modelo" ng-model="sw.modelo")
+				label#modelo Modelo del switche
+			.input-field
+				input(id="so" type="text" placeholder="SO" ng-model="sw.so")
+				label#so Sistema operativo del switche
+			.input-field
+				input(id="ip" type="text" placeholder="IP" ng-model="sw.ip")
+				label#ip IP del switche
+			.input-field
+				<select class="" material-select multiple watch>
+				<option ng-repeat='eq in equipos' value='{{eq.id}}'>{{ eq.name }}</option>
+				</select>
+			.input-field.row
+				input(type="submit" value="Crear" ng-click="crearSW(sw)").col-xs-12.btn.indigo.white-text
+		
 main
-	.header_ever.row.middle-xs
-		h3.white-text Equipos
-	.progress.transparent(style="margin:0px;")
-		.indeterminate.indigo
-	.content_ever.row.center-xs
-		.col-xs-12.no-padding.loadnow.hide
-			.center-xs.center.align
-				h3.light.grey-text.text-darken-1 Cargando ...
-		.col-xs-12.no-padding.notnetwork.hide
-			.center-xs.center.align
-				h3.light.red-text.text-darken-1 Ocurrio un error
-		.col-xs-11.start-xs.no-padding.table__content.hide
-			ul.collapsible(data-collapsible='accordion' )
-				li(ng-repeat='equipo in equipos')
-					.collapsible-header
-						i.material-icons dvr
-						| {{ equipo.name }}
-					.collapsible-body
-						span Lorem ipsum dolor sit amet.
+	.header_ever.row
+		nav.transparent.z-depth-0.col-xs-6
+			h4.white-text(style='margin-top:16px;') Equipos
+		nav.transparent.z-depth-0.col-xs-6(ng-controller="create_modal")
+			.nav-wrapper.transparent.z-depth-0
+				ul.right.hide-on-med-and-down
+					li.right
+						a(href="#" data-activates="slide-out").button-create.btn.white.indigo-text Agrega nuevo
+					li.right
+						a(href='badges.html')
+							i.material-icons more_vert
+					li.right
+						a(href='badges.html')
+							i.material-icons view_module
+					li.right
+						a(href='badges.html')
+							i.material-icons settings_ethernet
+	.content_ever.row.center-xs.z-depth-1.white
+		.row.col-xs-12.no-padding
+			.col-xs-6.no-padding
+				nav.blue.z-depth-0
+					.nav-wrapper.white.z-depth-0
+						form
+							.input-field
+								input#search.grey-text.text-darken-2(type='search', placeholder='Buscar equipos' required='' ng-model="busqueda")
+								label.label-icon(for='search')
+									i.grey-text.text-darken-2.material-icons search
+								i.material-icons close
+			nav.z-depth-0.col-xs-6.white
+				.nav-wrapper.z-depth-0
+					ul.right.hide-on-med-and-down
+						li.right
+							a(href='badges.html').grey-text.text-darken-2
+								i.material-icons.grey-text.text-darken-2 sort_by_alpha
+						li.right
+							a(href='badges.html').grey-text.text-darken-2
+								i.material-icons.grey-text.text-darken-2 view_list
+		.row.divider.col-xs-12
+		.row.col-xs-12
+			table.highlight
+				thead
+					tr
+						th Selc
+						th ID
+						th Nombre
+						th SO
+						th Marca
+						th Modelo
+						th Mac
+						th IP
+						th Opciones
+				tbody
+					tr(ng-repeat='equipo in equipos | filter:busqueda'  style='cursor:pointer;')
+						td
+							input(id='{{equipo.id}}' type='checkbox').red
+							label(for='{{equipo.id}}')
+						td {{equipo.id}}
+						td {{equipo.name}}
+						td {{equipo.so}}
+						td {{equipo.brand}}
+						td {{equipo.model}}
+						td {{equipo.mac}}
+						td {{equipo.ip}}
+						td 
+							a(ui-sref="single_equipo({ id: equipo.id })")
+								i.material-icons edit
 
+		.row.col-xs-12
+			.load.row.col-xs-12.center-xs
+				.spinner-layer.spinner-yellow
+					.circle-clipper.left
+						.circle
+					.gap-patch
+						.circle
+					.circle-clipper.right
+						.circle
+				h3.light.grey-text Cargando ... 
+			.hide.loadClear.row.col-xs-12.center-xs
+				h3.light.grey-text No hay equipos registrados ... 
+			.hide.loadError.row.col-xs-12.center-xs
+				h3.light.grey-text Ocurrio un error, intentalo mas tarde... 

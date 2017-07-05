@@ -1,11 +1,7 @@
-hermes.controller("dashboard_controller", function($scope, Equipos , materialize){
-
-	Equipos.getAll(function(equipos){
-		$scope.equipos = equipos.data;
-		$(".progress").addClass("hide");
-		$(".loadnow").addClass("hide");
-		$(".table__content").removeClass("hide");
-	})
+hermes.controller("dashboard_controller", function($scope){
+	console.log("Esto es Esparta!!");
+	console.log("ssssh que aqui no hay nada!!");
+	console.log("bueno bueno espartica ...");
 	
 });
 

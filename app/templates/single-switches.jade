@@ -1,66 +1,81 @@
 include ./includes/nav.jade
 
+ul#slide-out.side-nav
+	.row.col-xs-12.indigo.middle-xs(style='height: 130px;margin-bottom:30px;')
+		.row.col-xs-12
+			h3.light.white-text Editar un switche
+	.row.col-xs-12
+		form.col-xs-12
+			.input-field
+				input(id="name" type="text" placeholder="Nombre" ng-model="switche.name")
+				label#name Nombre del switche
+			.input-field
+				input(id="modelo" type="text" placeholder="Modelo" ng-model="switche.modelo")
+				label#modelo Modelo del switche
+			.input-field
+				input(id="so" type="text" placeholder="SO" ng-model="switche.so")
+				label#so Sistema operativo del switche
+			.input-field
+				input(id="ip" type="text" placeholder="IP" ng-model="switche.ip")
+				label#ip IP del switche
+			.input-field.row
+				input(type="submit" value="Actualizar" ng-click="update(switche)").col-xs-12.btn.indigo.white-text
+		.divider.col-xs-12
+		.row.col-xs-12
+			a(ng-click="delete()").btn.red Eliminar este Switche 
+
 main
 	.header_ever.row
-		nav.transparent.z-depth-0.col-xs-6.no-padding
-			.nav-wrapper
-				form
-					.input-field
-						input#search(type='search', placeholder='Buscar en switche conexiones' required='' ng-model="busqueda")
-						label.label-icon(for='search')
-							i.material-icons search
-						i.material-icons close
 		nav.transparent.z-depth-0.col-xs-6
-			.nav-wrapper
+			h4.white-text(style='margin-top:16px;') Informacion de switche
+		nav.transparent.z-depth-0.col-xs-6(ng-controller="create_modal")
+			.nav-wrapper.transparent.z-depth-0
 				ul.right.hide-on-med-and-down
 					li.right
-						a(href='badges.html')
-							i.material-icons account_circle
+						a(href="#" data-activates="slide-out").button-create.btn.white.indigo-text Editar
 					li.right
 						a(href='badges.html')
-							i.material-icons apps
-		nav.transparent.z-depth-0
-			.nav-wrapper.transparent.z-depth-0
-				ul.hide-on-med-and-down
-					li.left
-						a(href="#" data-activates="slide-out").button-create.btn.white.indigo-text Editar este Switche
-					li.right
-						a.dropdown-button(data-activates='dropdown1')
-							| Mas opciones
-							i.material-icons.right arrow_drop_down
-					li.right
-						a(href='badges.html')
-							i.material-icons settings_ethernet
-					li.right
-						a(href='sass.html')
-							i.material-icons sort_by_alpha
-	.content_ever.row.center-xs
-		.col-xs-12.start-xs.table__content
-			h4.light.grey-text.text-darken-2 
-				| Nombre del switche: 
-				| {{switche.name}}
-		.row.col-xs-12.no-padding
-			.row.col-md-6.col-xs-12
-				ul.collection.with-header.col-xs-12
-					li.collection-header.start-xs
-						h4 Equipos
-					li.collection-item Alvin
-					li.collection-item Alvin
-					li.collection-item Alvin
-					li.collection-item Alvin
-			.row.col-md-6.col-xs-12
-				ul.collection.with-header.col-xs-12
-					li.collection-header.start-xs
-						h4 Servidores
-					li.collection-item Alvin
-					li.collection-item Alvin
-					li.collection-item Alvin
-					li.collection-item Alvin
-			.row.col-md-6.col-xs-12
-				ul.collection.with-header.col-xs-12
-					li.collection-header.start-xs
-						h4 Switches
-					li.collection-item Alvin
-					li.collection-item Alvin
-					li.collection-item Alvin
-					li.collection-item Alvin
+							i.material-icons view_module
+	.content_special.row.col-xs-12
+		.row.col-xs-8
+			ul.collection.with-header.col-xs-12.white.no-padding
+				li.collection-header.start-xs
+					h5.grey-text.text-darken-2 Conexciones de este switche
+				.row.col-xs-12.no-padding
+					.row.col-xs-12
+						ul.collection.with-header.col-xs-12
+							li.collection-header.start-xs
+								h5.grey-text.text-darken-3 Equipos
+							li.collection-item Alvin
+							li.collection-item Alvin
+							li.collection-item Alvin
+							li.collection-item Alvin
+					.row.col-xs-12
+						ul.collection.with-header.col-xs-12
+							li.collection-header.start-xs
+								h5.grey-text.text-darken-3 Servidores
+							li.collection-item(ng-repeat='swe in switche_equipos') {{swe}} Equipos
+					.row.col-xs-12
+						ul.collection.with-header.col-xs-12
+							li.collection-header.start-xs
+								h5.grey-text.text-darken-3 Switches
+							li.collection-item Alvin
+							li.collection-item Alvin
+							li.collection-item Alvin
+							li.collection-item Alvin
+		.row.col-xs-4
+			ul.collection.with-header.col-xs-12.white.no-padding
+				li.collection-header.start-xs
+					h5.grey-text.text-darken-2 Informacion del Switche
+				li.collection-item 
+					b Nombre: 
+					| {{switche.name}}
+				li.collection-item
+					b Modelo: 
+					| {{switche.modelo}}
+				li.collection-item 
+					b Sistema Operativo: 
+					| {{switche.so}}
+				li.collection-item
+					b Ip: 
+					| {{switche.ip}}

@@ -1,11 +1,19 @@
-hermes.controller("servidores_controller", function($scope, Servidores, materialize){
+hermes.controller("servidores_controller", function(
+	$scope, 
+	$location, 
+	$window, 
+	Progres,
+	Query,
+	config
+){
 
-	Servidores.getAll(function(equipos){
-		$scope.equipos = equipos.data;
-		$(".progress").addClass("hide");
-		$(".loadnow").addClass("hide");
-		$(".table__content").removeClass("hide");
-	});
+	Query.getUrl(config.databaseURL + config.servidores);
+
+	Query.getAll(function(servidores){
+		$scope.servidores = servidores.data;
+		Progres.loaded();
+	})
+
 	
 });
 

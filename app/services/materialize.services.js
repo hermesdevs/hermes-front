@@ -1,20 +1,16 @@
 hermes.service("materialize", function(){
 
-	$('ul.tabs').tabs();
-	
-	$(".button-create").sideNav({
-		menuWidth: 500,
-		draggable: true
-	});
-
+	// menu lateral para editar	
 	$(".button-edit").sideNav({
 		menuWidth: 600,
 		edge: 'left',
 		draggable: true
 	});
 
+	// listas de seleccion en los formularios	
 	$('select').material_select();
 	
+	// pequeño menu desegable en las plantillas - para mas opciones	
 	$(".dropdown-button").dropdown();
 
 });

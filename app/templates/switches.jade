@@ -1,70 +1,5 @@
 include ./includes/nav.jade
 
-ul#dropdown1.dropdown-content
-	li
-		a(href='#!').indigo-text Ordenar con puerto
-	li
-		a(href='#!').indigo-text Ordenar con equipos
-	li
-		a(href='#!').indigo-text Ordenar con servidores
-	li.divider
-	li
-		a(href='#!').indigo-text Ordenar con todo
-
-main
-	.header_ever.row
-		nav.transparent.z-depth-0.col-xs-6.no-padding
-			.nav-wrapper
-				form
-					.input-field
-						input#search(type='search', placeholder='Buscar Switches' required='' ng-model="busqueda")
-						label.label-icon(for='search')
-							i.material-icons search
-						i.material-icons close
-		nav.transparent.z-depth-0.col-xs-6
-			.nav-wrapper
-				ul.right.hide-on-med-and-down
-					li.right
-						a(href='badges.html')
-							i.material-icons account_circle
-					li.right
-						a(href='badges.html')
-							i.material-icons apps
-		nav.transparent.z-depth-0
-			.nav-wrapper.transparent.z-depth-0
-				ul.hide-on-med-and-down
-					li.left
-						a(href="#" data-activates="slide-out").button-create.btn.white.indigo-text Agrega nuevo
-					li.right
-						a.dropdown-button(data-activates='dropdown1')
-							| Mas opciones
-							i.material-icons.right arrow_drop_down
-					li.right
-						a(href='badges.html')
-							i.material-icons view_list
-					li.right
-						a(href='sass.html')
-							i.material-icons sort_by_alpha
-	.content_ever.row.center-xs
-		.col-xs-12.start-xs.table__content.hide
-			table.highlight
-				thead
-					tr
-						th ID
-						th Nombre
-						th Modelo
-						th SO
-						th IP
-						th Color
-				tbody
-					tr(ng-repeat='sw in switches | filter:busqueda' ui-sref="single_switche({ id: sw.id })" style='cursor:pointer;')
-						td {{sw.id}}
-						td {{sw.name}}
-						td {{sw.modelo}}
-						td {{sw.so}}
-						td {{sw.ip}}
-						td {{sw.color}}
-
 ul#slide-out.side-nav
 	.row.col-xs-12.indigo.middle-xs(style='height: 130px;margin-bottom:30px;')
 		.row.col-xs-12
@@ -90,6 +25,80 @@ ul#slide-out.side-nav
 			.input-field.row
 				input(type="submit" value="Crear" ng-click="crearSW(sw)").col-xs-12.btn.indigo.white-text
 
-ul#slide-edit.side-nav
-	.row
-		h2.light Editar Switche
+main
+	.header_ever.row
+		nav.transparent.z-depth-0.col-xs-6
+			h4.white-text(style='margin-top:12px;') Switches
+		nav.transparent.z-depth-0.col-xs-6(ng-controller="create_modal")
+			.nav-wrapper.transparent.z-depth-0
+				ul.right.hide-on-med-and-down
+					li.right
+						a(href="#" data-activates="slide-out").button-create.btn.white.indigo-text Agrega nuevo
+					li.right
+						a(href='badges.html')
+							i.material-icons more_vert
+					li.right
+						a(href='badges.html')
+							i.material-icons view_module
+					li.right
+						a(href='badges.html')
+							i.material-icons settings_ethernet
+	.content_ever.row.center-xs.z-depth-1.white
+		.row.col-xs-12.no-padding
+			.col-xs-6.no-padding
+				nav.blue.z-depth-0
+					.nav-wrapper.white.z-depth-0
+						form
+							.input-field
+								input#search.grey-text.text-darken-2(type='search', placeholder='Buscar Switches' required='' ng-model="busqueda")
+								label.label-icon(for='search')
+									i.grey-text.text-darken-2.material-icons search
+								i.material-icons close
+			nav.z-depth-0.col-xs-6.white
+				.nav-wrapper.z-depth-0
+					ul.right.hide-on-med-and-down
+						li.right
+							a(href='badges.html').grey-text.text-darken-2
+								i.material-icons.grey-text.text-darken-2 sort_by_alpha
+						li.right
+							a(href='badges.html').grey-text.text-darken-2
+								i.material-icons.grey-text.text-darken-2 view_list
+		.row.divider.col-xs-12
+		.row.col-xs-12
+			table.highlight
+				thead
+					tr
+						th Selc
+						th ID
+						th Nombre
+						th Modelo
+						th SO
+						th IP
+						th Opciones
+				tbody
+					tr(ng-repeat='sw in switches | filter:busqueda' style='cursor:pointer;')
+						td
+							input(id='{{sw.id}}' type='checkbox').red
+							label(for='{{sw.id}}')
+						td {{sw.id}}
+						td {{sw.name}}
+						td {{sw.modelo}}
+						td {{sw.so}}
+						td {{sw.ip}}
+						td 
+							a(ui-sref="single_switche({ id: sw.id })")
+								i.material-icons edit
+		.row.col-xs-12
+			.load.row.col-xs-12.center-xs
+				.spinner-layer.spinner-yellow
+					.circle-clipper.left
+						.circle
+					.gap-patch
+						.circle
+					.circle-clipper.right
+						.circle
+				h3.light.grey-text Cargando ... 
+			.hide.loadClear.row.col-xs-12.center-xs
+				h3.light.grey-text No hay equipos registrados ... 
+			.hide.loadError.row.col-xs-12.center-xs
+				h3.light.grey-text Ocurrio un error, intentalo mas tarde... 

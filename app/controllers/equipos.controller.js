@@ -1,10 +1,10 @@
-hermes.controller("equipos_controller", function($scope, Equipos , materialize){
+hermes.controller("equipos_controller", function($scope, Query, Progres, config){
 
-	Equipos.getAll(function(equipos){
+	Query.getUrl(config.databaseURL + config.equipos);
+
+	Query.getAll(function(equipos){
 		$scope.equipos = equipos.data;
-		$(".progress").addClass("hide");
-		$(".loadnow").addClass("hide");
-		$(".table__content").removeClass("hide");
+		Progres.loaded();
 	})
 	
 });

@@ -1,28 +1,30 @@
 hermes.controller("switches_controller", function(
 	$scope, 
-	$resource,
-	$http, 
+	$location, 
+	$window, 
 	Progres,
-	Switches, 
-	Equipos, 
-	materialize, 
+	Query,
 	config
 ){
 
-	Switches.getAll(function(sw){
-		$scope.switches = sw.data;
-	});
+	Query.getUrl(config.databaseURL + config.switches);
 
-	Equipos.getAll(function(eq){
-		$scope.equipos = eq.data;
-	});
+	Query.getAll(function(switches){
+		$scope.switches = switches.data;
+		Progres.loaded();
+	})
+
+	Query.getUrl(config.databaseURL + config.equipos);
+
+	Query.getAll(function(equipos){
+		$scope.equipos = equipos.data;
+		Progres.loaded();
+	})
 
 	$scope.sw = {};
 	
 	$scope.crearSW = function(datos) {
-		Switches.sendNudes(function(datos){
-	    	Materialize.toast('Tu switche se esta creando', 4000);
-		});
+		Query.sendNudes(datos);
 	};
 	
 });
