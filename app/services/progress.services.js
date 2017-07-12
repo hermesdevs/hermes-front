@@ -1,15 +1,27 @@
 hermes.service("Progres", function(){
 
-	this.loading = function(argument) {
-		// cargando una solicitud de POST
+	this.progressloading = function(argument) {
+		// Activar barras de progreso
+		$(".progress-update").removeClass("hide");
+	}
+
+	this.progressloaded = function(argument) {
+		// Descarivar barras de progreso
+		$(".progress-update").addClass("hide");
 	}
 
 	this.loaded = function(argument) {
 		// cargando una solicitud de GET
 		// mientras cargan los recursos
-		$(".progress").addClass("hide");
 		$(".load").addClass("hide");
 		$(".table__content").removeClass("hide");
+		
+		// Activar botones
+		$(".btn").removeClass("disabled");
+		
+		// Barras de progreso
+		// Desactivar barras de progreso
+		$(".progress-load").addClass("hide");
 	}
 
 	this.itsClear = function(argument) {

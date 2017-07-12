@@ -14,4 +14,3 @@ hermes.constant('config', {
     vlans: "/vlans",
     version: "0.1.2"
 });
-

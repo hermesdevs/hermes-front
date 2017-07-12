@@ -13,7 +13,7 @@ hermes.controller("single_servidores_controller", function(
 
 	Query.getUrl(config.databaseURL + config.switches + "/" + $stateParams.id);
 
-	Query.getSingle(function(sw){
+	Query.getAll(function(sw){
 		$scope.switche = sw.data;
 	});
 

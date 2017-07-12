@@ -1,10 +1,12 @@
 include ./includes/nav.jade
 
-ul#slide-out.side-nav
-	.row.col-xs-12.indigo.middle-xs(style='height: 130px;margin-bottom:30px;')
-		.row.col-xs-12
+ul#slide-update.side-nav
+	.row.col-xs-12.indigo.middle-xs(style='height: 130px;')
+		.row.col-xs-11.no-padding
 			h3.light.white-text Editar un switche
-	.row.col-xs-12
+	.row.col-xs-12.no-padding.transparent.progress.progress-update.hide(style="margin:0px;")
+		.indeterminate.amber.accent-3
+	.row.col-xs-12.no-padding(style="margin-top:30px;")
 		form.col-xs-12
 			.input-field
 				input(id="name" type="text" placeholder="Nombre" ng-model="switche.name")
@@ -20,53 +22,75 @@ ul#slide-out.side-nav
 				label#ip IP del switche
 			.input-field.row
 				input(type="submit" value="Actualizar" ng-click="update(switche)").col-xs-12.btn.indigo.white-text
-		.divider.col-xs-12
+
+ul#slide-options.side-nav
+	.row.col-xs-12.indigo.middle-xs(style='height: 130px;')
+		.row.col-xs-11.no-padding
+			h4.light.white-text Opciones
+	.row.col-xs-12.no-padding.transparent.progress.progress-update.hide(style="margin:0px;")
+		.indeterminate.amber.accent-3
+	.row.col-xs-12.no-padding(style="margin-top:30px;")
+		//- Cambiar color
 		.row.col-xs-12
-			a(ng-click="delete()").btn.red Eliminar este Switche 
+			h6.light.grey-text.text-darken-2 Cambiar color
+		.row.col-xs-12.divider
+
+		//- Cambiar Visivilidad
+		.row.col-xs-12
+			h6.light.grey-text.text-darken-2 Cambiar visibilidad
+		.row.col-xs-12.divider
+
+		//- Eliminar elemento
+		.row.col-xs-12
+			h6.light.grey-text.text-darken-2 Más opciones
+		.row.col-xs-12.center-xs
+			a(ng-click="delete()").col-xs-12.btn.z-depth-0.red Eliminar este Switche
 
 main
 	.header_ever.row
 		nav.transparent.z-depth-0.col-xs-6
-			h4.white-text(style='margin-top:16px;') Informacion de switche
+			h4.white-text.light(style='margin-top:17px;') Informacion de switche
 		nav.transparent.z-depth-0.col-xs-6(ng-controller="create_modal")
 			.nav-wrapper.transparent.z-depth-0
 				ul.right.hide-on-med-and-down
 					li.right
-						a(href="#" data-activates="slide-out").button-create.btn.white.indigo-text Editar
+						a(href="#" data-activates="slide-update").disabled.button-create.btn.white.indigo-text Editar
 					li.right
-						a(href='badges.html')
+						a(href="#" data-activates="slide-options").disabled.button-create
+							i.material-icons more_vert
+					li.right
+						a(ng-click="verModulos()")
 							i.material-icons view_module
+		.col-xs-12.no-padding.transparent.progress.progress-load(style="margin:0px;")
+			.indeterminate.red.accent-2
 	.content_special.row.col-xs-12
-		.row.col-xs-8
+		//- Manejo de errores
+		.row.col-xs-12.center-xs.load
+			h3.light.grey-text.text-darken-2 Cargando informacion ...
+		//- Contenido del single
+		.row.col-xs-8.table__content.hide
 			ul.collection.with-header.col-xs-12.white.no-padding
 				li.collection-header.start-xs
-					h5.grey-text.text-darken-2 Conexciones de este switche
-				.row.col-xs-12.no-padding
-					.row.col-xs-12
-						ul.collection.with-header.col-xs-12
-							li.collection-header.start-xs
-								h5.grey-text.text-darken-3 Equipos
-							li.collection-item Alvin
-							li.collection-item Alvin
-							li.collection-item Alvin
-							li.collection-item Alvin
-					.row.col-xs-12
-						ul.collection.with-header.col-xs-12
-							li.collection-header.start-xs
-								h5.grey-text.text-darken-3 Servidores
-							li.collection-item(ng-repeat='swe in switche_equipos') {{swe}} Equipos
-					.row.col-xs-12
-						ul.collection.with-header.col-xs-12
-							li.collection-header.start-xs
-								h5.grey-text.text-darken-3 Switches
-							li.collection-item Alvin
-							li.collection-item Alvin
-							li.collection-item Alvin
-							li.collection-item Alvin
-		.row.col-xs-4
+					h5.light.grey-text.text-darken-3 Conexciones de este switche
+				//- Equipos por puerto
+				.row.col-xs-12.middle-xs(style="padding-top:20px;padding-bottom:20px;")
+					.row.col-xs-6.middle-xs.start-xs
+						.material-icons.grey-text.text-darken-2(style="margin-right:20px;") important_devices
+						h5.grey-text.text-darken-2 Equipos
+					.row.col-xs-6.middle-xs.end-xs
+						a.text-indigo.uppercase(ng-click="createSwPu(2,1)") Agregar nuevo equipo						
+				div.divider
+				ul.collection.row.col-xs-12.no-padding
+					li.collection-item(ng-repeat='eq in SwEqs')
+						p
+						| El equipo X  
+						| esta conectado al puerto 
+						b {{ eq.name }} 
+					.row.col-xs-12.end-xs(style="padding-top:15px;padding-bottom:15px;")
+		.row.col-xs-4.table__content.hide(style="max-height:500px;")
 			ul.collection.with-header.col-xs-12.white.no-padding
 				li.collection-header.start-xs
-					h5.grey-text.text-darken-2 Informacion del Switche
+					h5.light.grey-text.text-darken-3 Informacion del Switche
 				li.collection-item 
 					b Nombre: 
 					| {{switche.name}}

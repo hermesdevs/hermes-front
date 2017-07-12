@@ -1,6 +1,5 @@
 hermes.controller("single_switches_controller", function(
 	$scope, 
-	$resource,
 	$http,
 	$stateParams, 
 	$location, 
@@ -11,19 +10,26 @@ hermes.controller("single_switches_controller", function(
 	config
 ){
 
+	// Informacion del switche 
 	Query.getUrl(config.databaseURL + config.switches + "/" + $stateParams.id);
 
-	Query.getSingle(function(sw){
-		$scope.switche = sw.data;
+	Query.getAll(function(sw){
+		$scope.switche = sw;
+		Progres.loaded();
 	});
-	
+
 	$scope.update = function(datos) {
+		Progres.progressloading();
 		Query.updateDates(datos);
 	}
 	
-	$scope.delete = function() {
+	$scope.delete = function(){
+		Progres.progressloading();
 		Query.killme();
+	}
+
+	$scope.verModulos = function(){
+    	Materialize.toast('Esta funcion aun no esta lista', 4000);
 	}
 	
 });
-
