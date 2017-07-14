@@ -52,7 +52,6 @@ main
 			h3.light.grey-text No hay equipos registrados ... 
 		.hide.loadError.row.col-xs-12.center-xs
 			h3.light.grey-text Ocurrio un error, intentalo mas tarde... 
-
 	.content_ever.row.center-xs
 		.row.col-xs-12.no-padding
 			nav.transparent.z-depth-0.col-xs-6.no-padding
@@ -63,7 +62,7 @@ main
 							label.label-icon(for='search')
 								i.grey-text.text-darken-2.material-icons search
 							i.material-icons close
-			nav.transparent.z-depth-0.col-xs-6.no-padding
+			nav.transparent.z-depth-0.col-xs-6
 				.nav-wrapper
 					ul.right.hide-on-med-and-down
 						li.right
@@ -89,11 +88,11 @@ main
 						td.center-xs
 							input(id='{{sw.id}}' type='checkbox').red
 							label(for='{{sw.id}}')
-						td {{sw.id}}
-						td {{sw.name}}
-						td {{sw.modelo}}
-						td {{sw.so}}
-						td {{sw.ip}}
-						td.center-xs
-							a(ui-sref="single_switche({ id: sw.id })")
-								i.material-icons edit
+						td(ui-sref="single_switche({ id: sw.id })") {{sw.id}}
+						td(ui-sref="single_switche({ id: sw.id })") {{sw.name}}
+						td(ui-sref="single_switche({ id: sw.id })") {{sw.modelo}}
+						td(ui-sref="single_switche({ id: sw.id })") {{sw.so}}
+						td(ui-sref="single_switche({ id: sw.id })") {{sw.ip}}
+						td
+							a(ui-sref="single_switche({ id: sw.id })").center-xs
+								i.material-icons more
