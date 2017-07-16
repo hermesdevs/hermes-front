@@ -81,19 +81,19 @@ main
 						a.text-indigo.uppercase.button-create(data-activates="agregar-equipo-al-sw") Agregar nuevo equipo
 					.row.col-xs-12.no-padding						
 						ul.collection.row.col-xs-12.no-padding
-							li.collection-item.row.col-xs-12.middle-xs(ng-repeat='puerto in puertoEquipo')
-								.row.col-xs-4
-									p(ng-repeat="e in puerto.equipo")
-									| El {{e.name}}
-								.row.col-xs-4
-									p(ui-sref="single_equipo({ id: puerto.id })").blue-text 
-									| Puerto - 
-									b {{ puerto.name }}
-								.row.col-xs-4
-									a(ng-algo).right
-										i.material-icons edit
-									a(ng-algo).right
-										i.material-icons delete
+							div#hola
+							li.collection-item.row.col-xs-12.middle-xs
+								.row.col-xs-4.start-xs.no-padding.left-align
+									b#puerto 
+								.row.col-xs-4.start-xs.no-padding.left-align
+									b#equipo 
+							//- li.collection-item.row.col-xs-12.middle-xs(ng-repeat='equipo in PuertosEquipos.equipos')
+							//- 	.row.col-xs-4.start-xs.no-padding.left-align
+							//- 		a(ui-sref="single_equipo({ id: equipo.id })").blue-text Equipo: 
+							//- 			b {{ equipo.name }}
+							//- 	.row.col-xs-4.start-xs.no-padding.left-align
+							//- 		a(ui-sref="single_equipo({ id: equipo.id })").blue-text Puerto: 
+							//- 			b {{ PuertosEquipos.name }}
 				div.divider
 				.row.col-xs-12.middle-xs(style="padding-top:20px;padding-bottom:20px;")
 					.row.col-xs-6.middle-xs.start-xs
@@ -138,11 +138,11 @@ ul#agregar-equipo-al-sw.side-nav
 			.input-field
 				label#equipo Seleciona un puerto
 				<select class="" material-select watch>
-				<option ng-repeat='eq in equipos' value='{{eq.id}}'>{{ eq.name }}</option>
+				<option ng-repeat='puerto in puertos' value='{{puerto.id}}'>{{ eq.name }}</option>
 				</select>
 			.input-field
 				label#puerto Seleciona un equipo
-				<select class="" material-select watch>
+				<select class="" material-select multiple watch>
 				<option ng-repeat='eq in equipos' value='{{eq.id}}'>{{ eq.name }}</option>
 				</select>
 			.input-field.row

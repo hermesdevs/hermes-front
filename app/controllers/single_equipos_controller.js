@@ -1,27 +1,30 @@
-hermes.controller("single_equipos_controller", function(
-	$scope, 
-	$resource,
-	$http,
-	$stateParams, 
-	$location, 
-	$window, 
-	Progres,
-	Query,
-	materialize, 
-	config
-){
+hermes.controller("single_equipos_controller", function($scope, $stateParams, $location, $window, Progres, Query, materialize, config ){
 
-	Query.getUrl(config.databaseURL + config.switches + "/" + $stateParams.id);
-
-	Query.getAll(function(sw){
-		$scope.switche = sw.data;
+	Query.getUrl(config.databaseURL + config.equipos + "/" + $stateParams.id);
+	
+	Query.getAll(function(equipo){
+		$scope.equipo = equipo.data;
+		console.log(equipo.data);
+		Progres.loaded();
 	});
 
-	$scope.delete = function() {
-		Query.killme(config.databaseURL + config.switches + "/" + $stateParams.id);
-    	Materialize.toast('El Switche se esta eliminando', 4000);
-		$window.location.href="#/switches";
+	$scope.update = function(datos) {
+		Progres.progressloading();
+		Query.updateDates(datos);
+	}
+	
+	$scope.delete = function(){
+		Progres.progressloading();
+		Query.killme();
+	}
+
+	$scope.verModulos = function(){
+    	Materialize.toast('Esta funcion aun no esta lista', 4000);
 	}
 	
 });
+
+
+
+
 
