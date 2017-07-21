@@ -1,5 +1,8 @@
-hermes.controller("nav", function(){
+hermes.controller("nav", function($scope,$window, Session){
 	
-	$('.tooltipped').tooltip({delay: 50});
+	$scope.logout = function() {
+		Session.destroyUser;
+        $window.location.href="#/";
+	}
 
 });

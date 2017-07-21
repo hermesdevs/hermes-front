@@ -17,13 +17,13 @@ nav.el_menu_lateral_mas_gonito_del_universo.column-xs(ng-controller='nav')
 	a.item_icon.row(ui-sref="switches")
 		.ii.row.center-xs.middle-xs.material-icons.grey-text.text-darken-2 view_comfy
 		.pp.row.start-xs.middle-xs.grey-text.text-darken-2 Switches 
-	a.item_icon.row(ui-sref="net")
-		.ii.row.center-xs.middle-xs.material-icons.grey-text.text-darken-2 settings_input_component
-		.pp.row.start-xs.middle-xs.grey-text.text-darken-2 Conexiones 
+	a.item_icon.row(ui-sref="settings")
+		.ii.row.center-xs.middle-xs.material-icons.grey-text.text-darken-2 toll
+		.pp.row.start-xs.middle-xs.grey-text.text-darken-2 Sincronizacion 
+	.divider.col-xs-12
 	a.item_icon.row(ui-sref="settings")
 		.ii.row.center-xs.middle-xs.material-icons.grey-text.text-darken-2 settings
 		.pp.row.start-xs.middle-xs.grey-text.text-darken-2 Configuraciones 
-	.divider.col-xs-12
-	a.item_icon.row()
+	a.item_icon.row(ng-click='logout()')
 		.ii.row.center-xs.middle-xs.material-icons.grey-text.text-darken-2 power_settings_new
 		.pp.row.start-xs.middle-xs.grey-text.text-darken-2 Salir 

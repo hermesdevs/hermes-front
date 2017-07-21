@@ -3,11 +3,20 @@ hermes.controller("profile_controller", function(
 	$location, 
 	$window, 
 	Progres,
+	Session,
+	Auth,
 	Query,
 	config
 ){
 
-	console.log("Cuentas controller");
-	
+	Auth.getUser(function(user){
+		$scope.user = user.data;
+		$scope.user.active = true;
+	})
+
+	$scope.updateInfoUser = function (datos) {
+		Auth.updateUser(datos);
+	}
+
 });
 

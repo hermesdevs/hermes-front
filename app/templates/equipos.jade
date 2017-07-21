@@ -35,15 +35,24 @@ main
 					li.right
 						a(href="#" data-activates="slide-out").button-create.btn.white.indigo-text Agrega nuevo
 					li.right
-						a(href='badges.html')
+						a(ng-click="verModulos()")
 							i.material-icons more_vert
 					li.right
-						a(href='badges.html')
+						a(ng-click="verModulos()")
 							i.material-icons view_module
 					li.right
-						a(href='badges.html')
+						a(ng-click="verModulos()")
 							i.material-icons settings_ethernet
-	.content_ever.row.center-xs.z-depth-1.white
+		.col-xs-12.no-padding.transparent.progress.progress-load(style="margin:0px;")
+			.indeterminate.red.accent-2
+	.row.col-xs-12
+		.load.row.col-xs-12.center-xs
+			h3.light.grey-text Cargando ... 
+		.row.col-xs-12.center-xs(ng-if='equipos.length == 0')
+			h3.light.grey-text No hay equipos registrados ... 
+		.row.col-xs-12.center-xs(ng-if='equipos == undefined')
+			h3.light.grey-text Ocurrio un error, intentalo mas tarde... 
+	.content_ever.row.center-xs
 		.row.col-xs-12.no-padding
 			.col-xs-6.no-padding
 				nav.blue.z-depth-0

@@ -8,15 +8,77 @@ main
 			.nav-wrapper.transparent.z-depth-0
 				ul.right.hide-on-med-and-down
 					li.right
-						a(href='badges.html')
-							i.material-icons more_vert
-					li.right
-						a(href='badges.html')
-							i.material-icons view_module
-					li.right
-						a(href='badges.html')
-							i.material-icons settings_ethernet
-	.content_ever.row.center-xs
-		.column-xs.col-xs-12.center-xs
-			h3.light.grey-text Bueno emm ... 
-			h5.light.grey-text Segurisimo estamos trabajando en esto 
+						a(ui-sref="settings")
+							i.material-icons settings
+	.content_ever.row.start-xs(style="padding-top:10px;padding-bottom:5px;")
+		.column-xs.col-xs-12.col-md-6.start-xs
+			.row.col-xs-12.no-padding
+				ul.collection.with-header.col-xs-12.indigo.no-padding
+					li.collection-header.indigo.between-xs.bottom-xs.row(style="margin-top:15px;padding-bottom:20px;")
+						h5.white-text(style="margin:0px;") Tu cuenta
+						a(ui-sref="profile").uppercase.white-text Ver detalles
+					li.collection-item.between-xs.indigo 
+						p.white-text Usuario: 
+							b {{ user.name }}
+						p.white-text Correo Electronico: 
+							b {{ user.mail }}
+						p.white-text Tu cuenta esta: 
+							b(ng-if='user.active == true') Activa
+							b(ng-if='user.active == false') Desactivada
+						p.white-text Tu cuenta es de tipo: 
+							b(ng-if='user.super_permission == 0') Comun
+							b(ng-if='user.super_permission == 1') Administrador
+						p.white-text Puedes: 
+							b Crear, Editar, Leer y Eliminar
+		.column-xs.col-xs-12.col-md-6.start-xs
+			.row.col-xs-12.no-padding
+				ul.collection.with-header.col-xs-12.grey.lighten-5.no-padding
+					li.collection-header.grey.lighten-5.between-xs.bottom-xs.row(style="margin-top:15px;padding-bottom:20px;")
+						h5.grey-text.text-darken-3(style="margin:0px;") Novedades
+						a(ng-click='verModulos()').grey-text.disabled.uppercase Todas las novedades
+					li.collection-item.between-xs.grey.lighten-5 
+						p.grey-text.text-darken-3 
+							b Actualmente no hay novedades
+						p.grey-text.text-darken-1 Estas en la version 0.2 
+		.divider.col-xs-12
+		
+		.column-xs.col-xs-12.col-md-6.start-xs(style="margin-top:10px;")
+			.row.col-xs-12.no-padding
+				ul.collection.with-header.col-xs-12.white.no-padding
+					li.collection-header.between-xs.bottom-xs.row(style="margin-top:15px;padding-bottom:20px;")
+						h5.grey-text.text-darken-3(style="margin:0px;") Equipos
+						a(ui-sref="equipos").uppercase Ver todos los equipos
+					li.collection-item.between-xs 
+						p Equipos activos: 
+							b {{ equipos.length }}
+		.column-xs.col-xs-12.col-md-6.start-xs(style="margin-top:10px;")
+			.row.col-xs-12.no-padding
+				ul.collection.with-header.col-xs-12.white.no-padding
+					li.collection-header.between-xs.bottom-xs.row(style="margin-top:15px;padding-bottom:20px;")
+						h5.grey-text.text-darken-3(style="margin:0px;") Servidores
+						a(ui-sref="servidores").uppercase Ver todos los equipos
+					li.collection-item.between-xs 
+						p Servidores activos: 
+							b {{ servidores.length }}
+		.column-xs.col-xs-12.col-md-6.start-xs
+			.row.col-xs-12.no-padding
+				ul.collection.with-header.col-xs-12.white.no-padding
+					li.collection-header.between-xs.bottom-xs.row(style="margin-top:15px;padding-bottom:20px;")
+						h5.grey-text.text-darken-3(style="margin:0px;") Swtiches
+						a(ui-sref="switches").uppercase Ver todos los switches
+					li.collection-item.between-xs 
+						p Switches activos: 
+							b {{ switches.length }}
+		.divider.col-xs-12
+
+		.column-xs.col-xs-12.col-md-6.start-xs(style="margin-top:10px;")
+			.row.col-xs-12.no-padding
+				ul.collection.with-header.col-xs-12.white.no-padding
+					li.collection-header.between-xs.bottom-xs.row(style="margin-top:15px;padding-bottom:20px;")
+						h5.grey-text.text-darken-3(style="margin:0px;") Puertos
+						a(ng-click='verModulos()').grey-text.disabled.uppercase Ver todos los puertos
+					li.collection-item.between-xs 
+						p Puertos activos: 
+							b {{ puertos.length }}
+
+

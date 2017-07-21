@@ -39,6 +39,12 @@
 		}
 	}
 
+	a.item_icon:nth-child(1){
+		&:hover .ii{
+			color: #ffffff !important;
+		}			
+	}
+
 	.logogeneral{
 		transition: all .5s ease;
 	}

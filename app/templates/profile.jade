@@ -4,19 +4,44 @@ main
 	.header_ever.row
 		nav.transparent.z-depth-0.col-xs-6
 			h4.white-text(style='margin-top:16px;') Cuenta
-		nav.transparent.z-depth-0.col-xs-6(ng-controller="create_modal")
-			.nav-wrapper.transparent.z-depth-0
-				ul.right.hide-on-med-and-down
-					li.right
-						a(href='badges.html')
-							i.material-icons more_vert
-					li.right
-						a(href='badges.html')
-							i.material-icons view_module
-					li.right
-						a(href='badges.html')
-							i.material-icons settings_ethernet
-	.content_ever.row.center-xs
-		.column-xs.col-xs-12.center-xs
-			h3.light.grey-text Bueno emm ... 
-			h5.light.grey-text Segurisimo estamos trabajando en esto 
+	.content_ever.row.start-xs(style="padding-top:10px;padding-bottom:5px;")
+		.column-xs.col-xs-12.col-md-6.start-xs
+			.row.col-xs-12.no-padding
+				ul.collection.with-header.col-xs-12.white.no-padding
+					li.collection-header.between-xs.bottom-xs.row(style="margin-top:15px;padding-bottom:20px;")
+						h5.grey-text.text-darken-3(style="margin:0px;") Mas Informacioon
+					li.collection-item.between-xs
+						p.grey-text ID de la cuenta: 
+							b.grey-text.text-darken-1 {{user.id}}
+					li.collection-item.between-xs
+						p.grey-text Clave de acceso: 
+							b.grey-text.text-darken-1 {{user.remember_token}}
+					li.collection-item.between-xs
+						p.grey-text Estado de la cuenta: 
+							b.grey-text.text-darken-1(ng-if='user.active == true') Activa
+							b.grey-text.text-darken-1(ng-if='user.active == false') Desactivada
+					li.collection-item.between-xs
+						p.grey-text Tipo de cuenta: 
+							b.grey-text.text-darken-1(ng-if='user.super_permission == 0') Comun
+							b.grey-text.text-darken-1(ng-if='user.super_permission == 1') Administrador
+		.column-xs.col-xs-12.col-md-6.start-xs
+			.row.col-xs-12.no-padding
+				ul.collection.with-header.col-xs-12.white.no-padding
+					li.collection-header.between-xs.bottom-xs.row(style="margin-top:15px;padding-bottom:20px;")
+						h5.grey-text.text-darken-3(style="margin:0px;") Detalles de perfil
+					li.collection-item.between-xs.no-padding
+						form.col-xs-12(style='margin-top:40px;margin-bottom:30px;')
+							.input-field
+								input(id="name" type="text" placeholder="Nombre" ng-model="user.name")
+								label#name Nombre de usuario
+							.input-field
+								input(id="mail" type="text" placeholder="Tu correo" ng-model="user.mail")
+								label#mail Correo electronico
+							.input-field
+								input(id="phone" type="text" placeholder="Telefono" ng-model="user.phone")
+								label#phone Telefono
+							.input-field
+								input(id="date" type="text" placeholder="Tu cumple años" ng-model="user.date")
+								label#date Fecha de nacimiento
+							.input-field.row
+								input(type="submit" value="Actualizar" ng-click="updateInfoUser(user)").col-xs-12.btn.indigo.white-text

@@ -1,18 +1,14 @@
 hermes.service('Query', function($http, $window, config){
 
-	this.getUrl = function(url) {
-		this.url = url;
-	};
-
-	this.getAll = function(success, failure) {
-		$http.get(this.url)
+	this.getAll = function(urlDefine , success , failure) {
+		$http.get(urlDefine)
 			.success(success)
 			.error(failure)
 	};
 
-	this.sendNudes = function(datos , success , failure) {
+	this.sendNudes = function(urlDefine , datos) {
 		$http({
-	        url: config.databaseURL + config.switches,
+	        url: urlDefine,
 	        method: "POST",
 	        headers:{ 
 	        	'Content-Type': 'application/x-www-form-urlencoded' 
@@ -30,9 +26,9 @@ hermes.service('Query', function($http, $window, config){
 	    );
 	};
 
-	this.updateDates = function(datos) {
+	this.updateDates = function(urlDefine, datos) {
 		$http({
-	        url: this.url ,
+	        url: urlDefine ,
 	        method: "PATCH",
 	        headers:{ 
 	        	'Content-Type': 'application/x-www-form-urlencoded' 
@@ -49,8 +45,8 @@ hermes.service('Query', function($http, $window, config){
 		});
 	};
 
-	this.killme = function(deletewhat){
-		$http.delete(this.url)
+	this.killme = function(urlDefine){
+		$http.delete(urlDefine)
 			.success(function (success) {
 		    	Materialize.toast('El elemento fue eliminado' , 4000);
 				console.log(success);
@@ -61,29 +57,39 @@ hermes.service('Query', function($http, $window, config){
 			})
 	};
 
-
-
-	this.getUrlNest = function() {
-		// body...
-
-	}
-
 	// switches //puerto
-	this.sendNudesXtreme = function(elemento1, elemento2) {
+	this.relation = function(switche, puerto, equipo) {
 		$http({
-	        url: config.databaseURL + config.switches + "/" + elemento1 + config.puertos + "/" + elemento2,
+	        url: config.databaseURL + config.switches + "/" + switche + config.puertos + "/" + puerto,
 	        method: "POST",
 	        headers:{ 
 	        	'Content-Type': 'application/x-www-form-urlencoded' 
 	        }
 	    }).then(
 		    function(response){
-    	    	Materialize.toast('La anidacion fue establecida con existo', 4000);
+    	    	Materialize.toast('Se activo el puerto ' + puerto + ' del switche ' + switche, 4000);
 		        console.log(JSON.stringify(response));
 		    }, 
 	    	function (response){
-		    	Materialize.toast('Ocurrio un error al anidar los elementos', 4000);
+		    	Materialize.toast('Ocurrio un error al activar el puerto ' + puerto + ' con el switche ' + switche, 4000);
 		        console.log(JSON.stringify(response));
+		        console.log(response.status);
+	    	}
+	    )
+		$http({
+	        url: config.databaseURL + config.equipos + "/" + equipo + config.puertos + "/" + puerto,
+	        method: "POST",
+	        headers:{ 
+	        	'Content-Type': 'application/x-www-form-urlencoded' 
+	        }
+	    }).then(
+		    function(response){
+    	    	Materialize.toast('Se conecto el equipo ' + equipo + ' al puerto ' + puerto, 4000);
+		        console.log(JSON.stringify(response));
+		    }, 
+	    	function (response){
+		        console.log(JSON.stringify(response));
+		        console.log(response.status);
 	    	}
 	    );
 	};

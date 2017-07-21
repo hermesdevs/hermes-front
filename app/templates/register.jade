@@ -1,11 +1,13 @@
 .header_for_all.row.middle-xs.center-xs
-	.header_for_all-content.col-xs-11.col-md-6.col-lg-8
-		h3.light.text-grey.text-darken-2.center-align Registrate
+	form.header_for_all-content.col-xs-11.col-md-6.col-lg-8
+		.col-xs-12.no-padding.transparent.progress.progress-load.hide(style="margin:0px;")
+			.indeterminate.red.accent-1
+		h3.light.text-grey.text-darken-2.center-align(style="margin-top:40px;") Registrate
 		.row.input-field.no-padding.left-align.start-xs
-			input#email.validate(type='email').col-xs-12
+			input#email.validate(type='email' ng-model='user.mail').col-xs-12
 			label(for='email') Correo Electrónico
 		.row.input-field.no-padding.left-align.start-xs
-			input#password(type='password').col-xs-12
+			input#password(type='password' ng-model='user.password').col-xs-12
 			label(for='password') Contraseña
 		.row.input-field.no-padding
-			input#pass(type='button', value='Iniciar sesión').col-xs-12.btn.indigo.white-text
+			input#pass(type='submit', value='Crear cuenta' ng-click='resgiterUser(user)').col-xs-12.btn.indigo.white-text

@@ -1,8 +1,6 @@
-hermes.controller("equipos_controller", function($scope, Query, Progres, config){
+hermes.controller("equipos_controller", function($scope, Query, Equipos, Progres){
 
-	Query.getUrl(config.databaseURL + config.equipos);
-
-	Query.getAll(function(equipos){
+	Query.getAll(Equipos.general, function(equipos){
 		$scope.equipos = equipos.data;
 		Progres.loaded();
 	})

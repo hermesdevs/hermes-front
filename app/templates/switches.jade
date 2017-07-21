@@ -1,5 +1,102 @@
+//-------------------------------
+//- Menu de navegacion
+//-------------------------------
 include ./includes/nav.jade
 
+main
+	//-------------------------------
+	//- Barra de herramientas 
+	//-------------------------------
+	.header_ever.row
+		nav.transparent.z-depth-0.col-xs-6
+			h4.white-text.light(style='margin-top:16px;') Switches
+		nav.transparent.z-depth-0.col-xs-6(ng-controller="create_modal")
+			.nav-wrapper.transparent.z-depth-0
+				ul.right.hide-on-med-and-down
+					li.right
+						a(href="#" data-activates="slide-out").button-create.btn.white.indigo-text Agrega nuevo
+					//- li.right
+					//- 	a(ng-click="verModulos()")
+					//- 		i.material-icons more_vert
+					//- li.right
+					//- 	a(ng-click="verModulos()")
+					//- 		i.material-icons view_module
+					//- li.right
+					//- 	a(ng-click="verModulos()")
+					//- 		i.material-icons settings_ethernet
+
+	//-------------------------------
+	//- Barra de carga
+	//-------------------------------					
+	.col-xs-12.no-padding.transparent.progress.progress-load(style="margin:0px;")
+		.indeterminate.amber.accent-1
+	
+	//-------------------------------
+	//- Contenedor principal
+	//-------------------------------	
+	.content_ever.row.center-xs
+		
+		//-------------------------------
+		//- Barra de control de acciones
+		//-------------------------------	
+		.row.col-xs-12.no-padding
+			nav.transparent.z-depth-0.col-xs-6.no-padding
+				.nav-wrapper
+					form
+						.input-field
+							input#search.grey-text.text-darken-2(type='search', placeholder='Busqueda rapida' required='' ng-model="busqueda")
+							label.label-icon(for='search')
+								i.grey-text.text-darken-2.material-icons search
+							i.material-icons close
+			nav.transparent.z-depth-0.col-xs-6
+				.nav-wrapper
+					ul.right.hide-on-med-and-down
+						li.right
+							a(ng-click="verModulos()").grey-text.text-darken-2
+								i.material-icons sort_by_alpha
+						li.right
+							a(ng-click="verModulos()").grey-text.text-darken-2
+								i.material-icons view_list
+						li.right
+							a.grey-text.text-darken-2 Switches en total {{switches.length}}
+		.row.divider.col-xs-12
+		
+		//-------------------------------
+		//- Barra de contenido
+		//-------------------------------	
+		.row.col-xs-12.table__content.no-padding
+			table.highlight
+				thead
+					tr
+						th.center Selc
+						th ID
+						th Nombre
+						th Modelo
+						th SO
+						th IP
+						th.center-xs Opciones
+				tbody
+					tr(ng-repeat='sw in switches | filter:busqueda' style='cursor:pointer;')
+						td.center-xs
+							input(id='{{sw.id}}' type='checkbox').red
+							label(for='{{sw.id}}')
+						td(ui-sref="single_switche({ id: sw.id })") {{sw.id}}
+						td(ui-sref="single_switche({ id: sw.id })") {{sw.name}}
+						td(ui-sref="single_switche({ id: sw.id })") {{sw.modelo}}
+						td(ui-sref="single_switche({ id: sw.id })") {{sw.so}}
+						td(ui-sref="single_switche({ id: sw.id })") {{sw.ip}}
+						td.center-xs
+							a(ui-sref="single_switche({ id: sw.id })").center-xs
+								i.material-icons.indigo-text more
+				//-------------------------------
+				//- Mensajes de Error , Carga y Busqueda
+				//-------------------------------	
+				.row.col-xs-12
+					.load.row.col-xs-12.center-xs
+						h3.light.grey-text Cargando ... 
+					.row.col-xs-12.center-xs(ng-if="switches.length==0")
+						h3.light.grey-text No hay switches registrados 
+		
 ul#slide-out.side-nav
 	.row.col-xs-12.indigo.middle-xs(style='height: 130px;margin-bottom:30px;')
 		.row.col-xs-12
@@ -18,81 +115,5 @@ ul#slide-out.side-nav
 			.input-field
 				input(id="ip" type="text" placeholder="IP" ng-model="sw.ip")
 				label#ip IP del switche
-			.input-field
-				<select class="" material-select multiple watch>
-				<option ng-repeat='eq in equipos' value='{{eq.id}}'>{{ eq.name }}</option>
-				</select>
 			.input-field.row
 				input(type="submit" value="Crear" ng-click="crearSW(sw)").col-xs-12.btn.indigo.white-text
-
-main
-	.header_ever.row
-		nav.transparent.z-depth-0.col-xs-6
-			h4.white-text(style='margin-top:12px;') Switches
-		nav.transparent.z-depth-0.col-xs-6(ng-controller="create_modal")
-			.nav-wrapper.transparent.z-depth-0
-				ul.right.hide-on-med-and-down
-					li.right
-						a(href="#" data-activates="slide-out").button-create.btn.white.indigo-text Agrega nuevo
-					li.right
-						a(ng-click="verModulos()")
-							i.material-icons more_vert
-					li.right
-						a(ng-click="verModulos()")
-							i.material-icons view_module
-					li.right
-						a(ng-click="verModulos()")
-							i.material-icons settings_ethernet
-		.col-xs-12.no-padding.transparent.progress.progress-load(style="margin:0px;")
-			.indeterminate.red.accent-2
-	.row.col-xs-12
-		.load.row.col-xs-12.center-xs
-			h3.light.grey-text Cargando ... 
-		.hide.loadClear.row.col-xs-12.center-xs
-			h3.light.grey-text No hay equipos registrados ... 
-		.hide.loadError.row.col-xs-12.center-xs
-			h3.light.grey-text Ocurrio un error, intentalo mas tarde... 
-	.content_ever.row.center-xs
-		.row.col-xs-12.no-padding
-			nav.transparent.z-depth-0.col-xs-6.no-padding
-				.nav-wrapper
-					form
-						.input-field
-							input#search.grey-text.text-darken-2(type='search', placeholder='Buscar Switches' required='' ng-model="busqueda")
-							label.label-icon(for='search')
-								i.grey-text.text-darken-2.material-icons search
-							i.material-icons close
-			nav.transparent.z-depth-0.col-xs-6
-				.nav-wrapper
-					ul.right.hide-on-med-and-down
-						li.right
-							a(ng-click="verModulos()").grey-text.text-darken-2
-								i.material-icons sort_by_alpha
-						li.right
-							a(ng-click="verModulos()").grey-text.text-darken-2
-								i.material-icons view_list
-		.row.divider.col-xs-12
-		.row.col-xs-12.table__content.no-padding.hide
-			table.highlight
-				thead
-					tr
-						th.center Selc
-						th ID
-						th Nombre
-						th Modelo
-						th SO
-						th IP
-						th Opciones
-				tbody
-					tr(ng-repeat='sw in switches | filter:busqueda' style='cursor:pointer;')
-						td.center-xs
-							input(id='{{sw.id}}' type='checkbox').red
-							label(for='{{sw.id}}')
-						td(ui-sref="single_switche({ id: sw.id })") {{sw.id}}
-						td(ui-sref="single_switche({ id: sw.id })") {{sw.name}}
-						td(ui-sref="single_switche({ id: sw.id })") {{sw.modelo}}
-						td(ui-sref="single_switche({ id: sw.id })") {{sw.so}}
-						td(ui-sref="single_switche({ id: sw.id })") {{sw.ip}}
-						td
-							a(ui-sref="single_switche({ id: sw.id })").center-xs
-								i.material-icons more

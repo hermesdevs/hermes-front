@@ -1,21 +1,18 @@
-hermes.controller("single_equipos_controller", function($scope, $stateParams, $location, $window, Progres, Query, materialize, config ){
+hermes.controller("single_equipos_controller", function($scope, Query, Equipos, $stateParams, Progres){
 
-	Query.getUrl(config.databaseURL + config.equipos + "/" + $stateParams.id);
-	
-	Query.getAll(function(equipo){
+	Query.getAll(Equipos.single, function(equipo){
 		$scope.equipo = equipo.data;
-		console.log(equipo.data);
 		Progres.loaded();
 	});
 
 	$scope.update = function(datos) {
 		Progres.progressloading();
-		Query.updateDates(datos);
+		Query.updateDates(Equipos.single, datos);
 	}
 	
 	$scope.delete = function(){
 		Progres.progressloading();
-		Query.killme();
+		Query.killme(Equipos.single);
 	}
 
 	$scope.verModulos = function(){

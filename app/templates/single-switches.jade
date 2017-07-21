@@ -1,5 +1,4 @@
 include ./includes/nav.jade
-
 ul#slide-update.side-nav
 	.row.col-xs-12.indigo.middle-xs(style='height: 130px;')
 		.row.col-xs-11.no-padding
@@ -22,7 +21,6 @@ ul#slide-update.side-nav
 				label#ip IP del switche
 			.input-field.row
 				input(type="submit" value="Actualizar" ng-click="update(switche)").col-xs-12.btn.indigo.white-text
-
 ul#slide-options.side-nav
 	.row.col-xs-12.indigo.middle-xs(style='height: 130px;')
 		.row.col-xs-11.no-padding
@@ -45,7 +43,6 @@ ul#slide-options.side-nav
 			h6.light.grey-text.text-darken-2 Más opciones
 		.row.col-xs-12.center-xs
 			a(ng-click="delete()").col-xs-12.btn.z-depth-0.red Eliminar este Switche
-
 main
 	.header_ever.row
 		nav.transparent.z-depth-0.col-xs-6
@@ -68,32 +65,33 @@ main
 		.row.col-xs-12.center-xs.load
 			h3.light.grey-text.text-darken-2 Cargando informacion ...
 		//- Contenido del single
-		.row.col-xs-8.table__content.hide
+		.row.col-xs-12.col-md-8.table__content.hide
 			ul.collection.with-header.col-xs-12.white.no-padding
 				li.collection-header.start-xs
-					h5.light.grey-text.text-darken-3 Conexciones de este switche
-				//- Equipos por puerto
-				.row.col-xs-12.middle-xs(style="padding-top:20px;padding-bottom:20px;")
+					h5.light.grey-text.text-darken-3 Conexciones de este switche				
+				.row.col-xs-12.middle-xs(ng-controller="switches_puertos_equipos" style="padding-top:20px;padding-bottom:20px;")
 					.row.col-xs-6.middle-xs.start-xs
 						.material-icons.grey-text.text-darken-2(style="margin-right:20px;") important_devices
 						h5.grey-text.text-darken-2 Equipos
 					.row.col-xs-6.middle-xs.end-xs
 						a.text-indigo.uppercase.button-create(data-activates="agregar-equipo-al-sw") Agregar nuevo equipo
 					.row.col-xs-12.no-padding						
-						ul.collection.row.col-xs-12.no-padding
-							div#hola
-							li.collection-item.row.col-xs-12.middle-xs
-								.row.col-xs-4.start-xs.no-padding.left-align
-									b#puerto 
-								.row.col-xs-4.start-xs.no-padding.left-align
-									b#equipo 
-							//- li.collection-item.row.col-xs-12.middle-xs(ng-repeat='equipo in PuertosEquipos.equipos')
-							//- 	.row.col-xs-4.start-xs.no-padding.left-align
-							//- 		a(ui-sref="single_equipo({ id: equipo.id })").blue-text Equipo: 
-							//- 			b {{ equipo.name }}
-							//- 	.row.col-xs-4.start-xs.no-padding.left-align
-							//- 		a(ui-sref="single_equipo({ id: equipo.id })").blue-text Puerto: 
-							//- 			b {{ PuertosEquipos.name }}
+						.col-xs-12.no-padding.transparent.progress(style="margin:0px;")
+							.indeterminate.red.accent-1
+						ul.collection.row.col-xs-12.no-padding.center-xs
+							li.collection-item.avatar.row.col-xs-12.middle-xs(ng-if='puertosEquipos.length > 0' ng-repeat='puerto in puertosEquipos')
+								i.material-icons.white-text.circle.green info
+								p Al puerto: 
+									b {{ puerto.name }} 
+								|  esta conectado el 
+								p(ng-repeat='equipo in puerto.equipo') equipo: 
+									a(ui-sref='single_equipo({ id: equipo.id })')
+										b {{ equipo.name }}
+								.secondary-content.row.middle-xs.center-xs
+									a.grey-text.right(ui-sref='single_equipo({ id: equipo.id })')
+										i.material-icons delete
+							li.collection-item.avatar.row.col-xs-12.center-xs(ng-if='puertosEquipos.length == 0')
+								h3.grey-text No hay puertos activos
 				div.divider
 				.row.col-xs-12.middle-xs(style="padding-top:20px;padding-bottom:20px;")
 					.row.col-xs-6.middle-xs.start-xs
@@ -109,7 +107,7 @@ main
 					.row.col-xs-6.middle-xs.end-xs
 						a.text-indigo.uppercase(ng-click="createSwPu(2,1)") Agregar nuevo Switche						
 				div.divider
-		.row.col-xs-4.table__content.hide(style="max-height:500px;")
+		.row.col-xs-12.col-md-4.table__content.hide(style="max-height:500px;")
 			ul.collection.with-header.col-xs-12.white.no-padding
 				li.collection-header.start-xs
 					h5.light.grey-text.text-darken-3 Informacion del Switche
@@ -125,8 +123,6 @@ main
 				li.collection-item
 					b Ip: 
 					| {{switche.ip}}
-
-//- Agregar Equipo Al Switche
 ul#agregar-equipo-al-sw.side-nav
 	.row.col-xs-12.indigo.middle-xs(style='height: 130px;')
 		.row.col-xs-11.no-padding
@@ -136,14 +132,10 @@ ul#agregar-equipo-al-sw.side-nav
 	.row.col-xs-12.no-padding(style="margin-top:30px;")
 		form.col-xs-12
 			.input-field
-				label#equipo Seleciona un puerto
-				<select class="" material-select watch>
-				<option ng-repeat='puerto in puertos' value='{{puerto.id}}'>{{ eq.name }}</option>
-				</select>
+				select(id="equipoMuchos" class="browser-default" ng-model='relation.element1')
+				label#equipoMuchos.active Seleciona un equipo
 			.input-field
-				label#puerto Seleciona un equipo
-				<select class="" material-select multiple watch>
-				<option ng-repeat='eq in equipos' value='{{eq.id}}'>{{ eq.name }}</option>
-				</select>
+				select(id="puertosMuchos" class="browser-default" ng-model='relation.element2')
+				label#puertosMuchos.active Seleciona un puerto
 			.input-field.row
-				input(type="submit" value="Confirmar" ng-click="createSwPu(2,1)").col-xs-12.btn.z-depth-0.green
+				input(type="submit" value="Confirmar" ng-click="PuertoEquipo(relation)").col-xs-12.btn.z-depth-0.indigo.white-text
