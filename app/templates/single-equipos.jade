@@ -1,5 +1,56 @@
 include ./includes/nav.jade
 
+main
+	.header_ever.row
+		nav.transparent.z-depth-0.col-xs-6
+			h4.white-text.light(style='margin-top:17px;') Informacion del equipo
+		nav.transparent.z-depth-0.col-xs-6(ng-controller="create_modal")
+			.nav-wrapper.transparent.z-depth-0
+				ul.right.hide-on-med-and-down
+					li.right
+						a(href="#" data-activates="slide-update").disabled.button-create.btn.white.indigo-text Editar
+					li.right
+						a(href="#" data-activates="slide-options").disabled.button-create
+							i.material-icons more_vert
+					li.right
+						a(ng-click="verModulos()")
+							i.material-icons view_module
+		.col-xs-12.no-padding.transparent.progress.progress-load(style="margin:0px;")
+			.indeterminate.red.accent-2
+	.content_special.row.col-xs-12
+		//- Manejo de errores
+		.row.col-xs-12.center-xs.load
+			h3.light.grey-text.text-darken-2 Cargando informacion ...
+		//- Contenido del single
+		.row.col-xs-8.table__content.hide
+			ul.collection.with-header.col-xs-12.white.no-padding
+				li.collection-header.start-xs
+					h5.light.grey-text.text-darken-3 Conexciones de este equipo
+				div.divider
+		.row.col-xs-4.table__content.hide(style="max-height:500px;")
+			ul.collection.with-header.col-xs-12.white.no-padding
+				li.collection-header.start-xs
+					h5.light.grey-text.text-darken-3 Informacion del Equipo
+				li.collection-item 
+					b Nombre: 
+					| {{equipo.name}}
+				li.collection-item
+					b Modelo: 
+					| {{equipo.model}}
+				li.collection-item
+					b IP: 
+					| {{equipo.ip}}
+				li.collection-item
+					b mac: 
+					| {{equipo.mac}}
+				li.collection-item 
+					b Sistema Operativo: 
+					| {{equipo.so}}
+				li.collection-item
+					b Marca: 
+					| {{equipo.brand}}
+
+
 ul#slide-update.side-nav
 	.row.col-xs-12.indigo.middle-xs(style='height: 130px;')
 		.row.col-xs-11.no-padding
@@ -52,65 +103,4 @@ ul#slide-options.side-nav
 		.row.col-xs-12.center-xs
 			a(ng-click="delete()").col-xs-12.btn.z-depth-0.red Eliminar este equipo
 
-main
-	.header_ever.row
-		nav.transparent.z-depth-0.col-xs-6
-			h4.white-text.light(style='margin-top:17px;') Informacion del equipo
-		nav.transparent.z-depth-0.col-xs-6(ng-controller="create_modal")
-			.nav-wrapper.transparent.z-depth-0
-				ul.right.hide-on-med-and-down
-					li.right
-						a(href="#" data-activates="slide-update").disabled.button-create.btn.white.indigo-text Editar
-					li.right
-						a(href="#" data-activates="slide-options").disabled.button-create
-							i.material-icons more_vert
-					li.right
-						a(ng-click="verModulos()")
-							i.material-icons view_module
-		.col-xs-12.no-padding.transparent.progress.progress-load(style="margin:0px;")
-			.indeterminate.red.accent-2
-	.content_special.row.col-xs-12
-		//- Manejo de errores
-		.row.col-xs-12.center-xs.load
-			h3.light.grey-text.text-darken-2 Cargando informacion ...
-		//- Contenido del single
-		.row.col-xs-8.table__content.hide
-			ul.collection.with-header.col-xs-12.white.no-padding
-				li.collection-header.start-xs
-					h5.light.grey-text.text-darken-3 Conexciones de este equipo
-				.row.col-xs-12.middle-xs(style="padding-top:20px;padding-bottom:20px;")
-					.row.col-xs-6.middle-xs.start-xs
-						.material-icons.grey-text.text-darken-2(style="margin-right:20px;") dns
-						h5.grey-text.text-darken-2 Servidores
-					.row.col-xs-6.middle-xs.end-xs
-						a.text-indigo.uppercase Agregar nuevo servidor						
-				div.divider
-				.row.col-xs-12.middle-xs(style="padding-top:20px;padding-bottom:20px;")
-					.row.col-xs-6.middle-xs.start-xs
-						.material-icons.grey-text.text-darken-2(style="margin-right:20px;") view_comfy
-						h5.grey-text.text-darken-2 Switches
-					.row.col-xs-6.middle-xs.end-xs
-						a.text-indigo.uppercase Agregar nuevo Switche						
-				div.divider
-		.row.col-xs-4.table__content.hide(style="max-height:500px;")
-			ul.collection.with-header.col-xs-12.white.no-padding
-				li.collection-header.start-xs
-					h5.light.grey-text.text-darken-3 Informacion del Equipo
-				li.collection-item 
-					b Nombre: 
-					| {{equipo.name}}
-				li.collection-item
-					b Modelo: 
-					| {{equipo.model}}
-				li.collection-item
-					b IP: 
-					| {{equipo.ip}}
-				li.collection-item
-					b mac: 
-					| {{equipo.mac}}
-				li.collection-item 
-					b Sistema Operativo: 
-					| {{equipo.so}}
-				li.collection-item
-					b Marca: 
-					| {{equipo.brand}}
+

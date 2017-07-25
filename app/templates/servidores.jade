@@ -1,31 +1,5 @@
 include ./includes/nav.jade
 
-ul#slide-out.side-nav
-	.row.col-xs-12.indigo.middle-xs(style='height: 130px;margin-bottom:30px;')
-		.row.col-xs-12
-			h3.light.white-text Nuevo servidor
-	.row.col-xs-12
-		form.col-xs-12
-			.input-field
-				input(id="name" type="text" placeholder="Nombre" ng-model="sw.name")
-				label#name Nombre del switche
-			.input-field
-				input(id="modelo" type="text" placeholder="Modelo" ng-model="sw.modelo")
-				label#modelo Modelo del switche
-			.input-field
-				input(id="so" type="text" placeholder="SO" ng-model="sw.so")
-				label#so Sistema operativo del switche
-			.input-field
-				input(id="ip" type="text" placeholder="IP" ng-model="sw.ip")
-				label#ip IP del switche
-			.input-field
-				<select class="" material-select multiple watch>
-				<option ng-repeat='eq in equipos' value='{{eq.id}}'>{{ eq.name }}</option>
-				</select>
-			.input-field.row
-				input(type="submit" value="Crear" ng-click="crearSW(sw)").col-xs-12.btn.indigo.white-text
-
-
 main
 	.header_ever.row
 		nav.transparent.z-depth-0.col-xs-6
@@ -35,24 +9,8 @@ main
 				ul.right.hide-on-med-and-down
 					li.right
 						a(href="#" data-activates="slide-out").button-create.btn.white.indigo-text Agrega nuevo
-					li.right
-						a(ng-click="verModulos()")
-							i.material-icons more_vert
-					li.right
-						a(ng-click="verModulos()")
-							i.material-icons view_module
-					li.right
-						a(ng-click="verModulos()")
-							i.material-icons settings_ethernet
 		.col-xs-12.no-padding.transparent.progress.progress-load(style="margin:0px;")
 			.indeterminate.red.accent-2
-	.row.col-xs-12
-		.load.row.col-xs-12.center-xs
-			h3.light.grey-text Cargando ... 
-		.row.col-xs-12.center-xs(ng-if='equipos.length == 0')
-			h3.light.grey-text No hay equipos registrados ... 
-		.row.col-xs-12.center-xs(ng-if='equipos == undefined')
-			h3.light.grey-text Ocurrio un error, intentalo mas tarde... 
 	.content_ever.row.center-xs
 		.row.col-xs-12.no-padding
 			.col-xs-6.no-padding
@@ -74,7 +32,7 @@ main
 							a(href='badges.html').grey-text.text-darken-2
 								i.material-icons.grey-text.text-darken-2 view_list
 		.row.divider.col-xs-12
-		.row.col-xs-12
+		.row.col-xs-12.table__content.no-padding
 			table.highlight
 				thead
 					tr
@@ -88,15 +46,52 @@ main
 						th Opciones
 				tbody
 					tr(ng-repeat='servidor in servidores | filter:busqueda' style='cursor:pointer;')
-						td
+						td.center-xs
 							input(id='{{sw.id}}' type='checkbox').red
 							label(for='{{sw.id}}')
-						td {{servidor.id}}
-						td {{servidor.name}}
-						td {{servidor.ip}}
-						td {{servidor.mac}}
-						td {{servidor.so}}
-						td {{servidor.description}}
-						td 
-							a(ui-sref="single_servidores({ id: servidor.id })")
-								i.material-icons edit
+						td(ui-sref="single_servidores({ id: servidor.id })") {{servidor.id}}
+						td(ui-sref="single_servidores({ id: servidor.id })") {{servidor.name}}
+						td(ui-sref="single_servidores({ id: servidor.id })") {{servidor.ip}}
+						td(ui-sref="single_servidores({ id: servidor.id })") {{servidor.mac}}
+						td(ui-sref="single_servidores({ id: servidor.id })") {{servidor.so}}
+						td(ui-sref="single_servidores({ id: servidor.id })") {{servidor.description}}
+						td.center-xs
+							a(ui-sref="single_servidores({ id: servidor.id })").center-xs
+								i.material-icons.indigo-text more
+				//-------------------------------
+				//- Mensajes de Error , Carga y Busqueda
+				//-------------------------------	
+				.row.col-xs-12
+					.load.row.col-xs-12.center-xs
+						h3.light.grey-text Cargando ... 
+					.row.col-xs-12.center-xs(ng-if="servidores.length==0")
+						h3.light.grey-text No hay switches registrados 
+
+ul#slide-out.side-nav
+	.row.col-xs-12.indigo.middle-xs(style='height: 130px;margin-bottom:30px;')
+		.row.col-xs-12
+			h3.light.white-text Crear un servidor
+	.row.col-xs-12
+		form.col-xs-12
+			.input-field
+				input(id="name" type="text" placeholder="Nombre" ng-model="servidor.name")
+				label#name Nombre del servidor
+			.input-field
+				input(id="ip" type="text" placeholder="IP" ng-model="servidor.ip")
+				label#ip IP del servidor
+			.input-field
+				input(id="mac" type="text" placeholder="mac" ng-model="servidor.mac")
+				label#mac MAC
+			.input-field
+				input(id="so" type="text" placeholder="SO" ng-model="servidor.so")
+				label#so Sistema operativo del servidor
+			.input-field
+				input(id="description" type="text" placeholder="Descripción" ng-model="servidor.description")
+				label#description Descripción
+			.input-field
+				input(id="modelo" type="text" placeholder="Modelo" ng-model="servidor.modelo")
+				label#modelo Modelo del servidor
+			.input-field.row
+				input(type="submit" value="Crear" ng-click="crearServidor(servidor)").col-xs-12.btn.indigo.white-text
+
+

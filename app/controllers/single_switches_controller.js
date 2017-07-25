@@ -32,12 +32,14 @@ hermes.controller("switches_puertos_equipos", function($scope, Switches, $stateP
 		var puertos = new Array;
 
 		var obtenerDatos = function(url) {
-			$.ajax({
+			var consulta = $.ajax({
 				url: url,
+				async: false,
 				success: function (success) {
 					puertos.push(success.data);
 				}
 			});	
+			return consulta;
 		}
 
 		for (var i=0; i < puertosFrist.data.length; i++){
@@ -47,8 +49,9 @@ hermes.controller("switches_puertos_equipos", function($scope, Switches, $stateP
 		var puertosEquipos = {
 			"all": puertos
 		}
+
 		$scope.puertosEquipos = puertosEquipos.all;
-	
+		Progres.loaded();
 	});
 
 	$scope.PuertoEquipo = function(relation){

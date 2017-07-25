@@ -19,3 +19,18 @@ hermes.constant('Switches', {
     general : "http://hermes.api.dev/switches",
     single : "http://hermes.api.dev/switches/"
 });
+
+hermes.constant('Servidores', {
+    general : "http://hermes.api.dev/servidores",
+    single : "http://hermes.api.dev/servidores/"
+});
+
+hermes.constant('Equipos', {
+    general : "http://hermes.api.dev/equipos",
+    single : "http://hermes.api.dev/equipos/"
+});
+
+hermes.constant('Puertos', {
+    general : "http://hermes.api.dev/puertos",
+    single : "http://hermes.api.dev/puertos/"
+});

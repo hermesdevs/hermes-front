@@ -1,46 +1,26 @@
-hermes.controller("dashboard_controller", function(
-	$scope, 
-	$location, 
-	$window, 
-	Progres, 
-	Query, 
-	materialize, 
-	config, 
-	Session, 
-	Auth
-){
+hermes.controller("dashboard_controller", function($scope, Progres, Query, Auth , Switches, Servidores, Equipos, Puertos){
 
-	// estableciendo la session
 	Auth.getUser(function(user){
 		$scope.user = user.data;
 		$scope.user.active = true;
 	})
 
-	// Obteniendo datos de recursos
-	Query.getUrl(config.databaseURL + config.switches);
-
-	Query.getAll(function(switches){
+	Query.getAll(Switches.general, function(switches){
 		$scope.switches = switches.data;
 		Progres.loaded();
 	})
 
-	Query.getUrl(config.databaseURL + config.servidores);
-
-	Query.getAll(function(servidores){
+	Query.getAll(Servidores.general, function(servidores){
 		$scope.servidores = servidores.data;
 		Progres.loaded();
 	})
 
-	Query.getUrl(config.databaseURL + config.equipos);
-
-	Query.getAll(function(equipos){
+	Query.getAll(Equipos.general, function(equipos){
 		$scope.equipos = equipos.data;
 		Progres.loaded();
 	})
 
-	Query.getUrl(config.databaseURL + config.puertos);
-
-	Query.getAll(function(puertos){
+	Query.getAll(Puertos.general, function(puertos){
 		$scope.puertos = puertos.data;
 		Progres.loaded();
 	})

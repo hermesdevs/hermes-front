@@ -75,11 +75,16 @@ main
 						h5.grey-text.text-darken-2 Equipos
 					.row.col-xs-6.middle-xs.end-xs
 						a.text-indigo.uppercase.button-create(data-activates="agregar-equipo-al-sw") Agregar nuevo equipo
-					.row.col-xs-12.no-padding						
-						.col-xs-12.no-padding.transparent.progress(style="margin:0px;")
-							.indeterminate.red.accent-1
+					.row.col-xs-12.no-padding				
+						//- .col-xs-12.no-padding.transparent.progress(style="margin:0px;")
+						//- 	.indeterminate.red.accent-1
 						ul.collection.row.col-xs-12.no-padding.center-xs
 							li.collection-item.avatar.row.col-xs-12.middle-xs(ng-if='puertosEquipos.length > 0' ng-repeat='puerto in puertosEquipos')
+								div(id="{{ puerto.id }}").modal.modal-fixed-footer
+									.modal-content
+										h4 Modal header
+									.modal-footer
+										.modal-action.modal-close.waves-effect.waves-green.btn-flat E
 								i.material-icons.white-text.circle.green info
 								p Al puerto: 
 									b {{ puerto.name }} 
@@ -88,10 +93,19 @@ main
 									a(ui-sref='single_equipo({ id: equipo.id })')
 										b {{ equipo.name }}
 								.secondary-content.row.middle-xs.center-xs
-									a.grey-text.right(ui-sref='single_equipo({ id: equipo.id })')
+									a.grey-text.right.modal-trigger(href="#{{ puerto.id }}")
 										i.material-icons delete
 							li.collection-item.avatar.row.col-xs-12.center-xs(ng-if='puertosEquipos.length == 0')
 								h3.grey-text No hay puertos activos
+					.row.col-xs-12.center-xs.no-padding.progress-load				
+						.preloader-wrapper.small.active
+							.spinner-layer.spinner-green-only
+								.circle-clipper.left		
+									.circle
+								.gap-patch
+									.circle
+								.circle-clipper.right		
+									.circle
 				div.divider
 				.row.col-xs-12.middle-xs(style="padding-top:20px;padding-bottom:20px;")
 					.row.col-xs-6.middle-xs.start-xs

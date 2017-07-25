@@ -1,19 +1,19 @@
-hermes.controller("servidores_controller", function(
-	$scope, 
-	$location, 
-	$window, 
-	Progres,
-	Query,
-	config
-){
+hermes.controller("servidores_controller", function($scope, Progres, Servidores, Query ){
 
-	Query.getUrl(config.databaseURL + config.servidores);
-
-	Query.getAll(function(servidores){
+	Query.getAll(Servidores.general, function(servidores){
 		$scope.servidores = servidores.data;
 		Progres.loaded();
 	})
 
+	$scope.servidor = {};
+		
+	$scope.crearServidor = function(datos) {
+		Query.sendNudes(Servidores.general, datos);
+	};
 	
+	$scope.verModulos = function(){
+    	Materialize.toast('Esta funcion aun no esta lista', 4000);
+	}
+
 });
 

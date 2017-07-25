@@ -2,57 +2,105 @@ include ./includes/nav.jade
 
 main
 	.header_ever.row
-		nav.transparent.z-depth-0.col-xs-6.no-padding
-			.nav-wrapper
-				form
-					.input-field
-						input#search(type='search', placeholder='Buscar en switche conexiones' required='' ng-model="busqueda")
-						label.label-icon(for='search')
-							i.material-icons search
-						i.material-icons close
 		nav.transparent.z-depth-0.col-xs-6
-			.nav-wrapper
+			h4.white-text.light(style='margin-top:17px;') Informacion del servidor
+		nav.transparent.z-depth-0.col-xs-6(ng-controller="create_modal")
+			.nav-wrapper.transparent.z-depth-0
 				ul.right.hide-on-med-and-down
 					li.right
-						a(href='badges.html')
-							i.material-icons account_circle
+						a(href="#" data-activates="slide-update").disabled.button-create.btn.white.indigo-text Editar
 					li.right
-						a(href='badges.html')
-							i.material-icons apps
-		nav.transparent.z-depth-0
-			.nav-wrapper.transparent.z-depth-0
-				ul.hide-on-med-and-down
-					li.left
-						a(href="#" data-activates="slide-out").button-create.btn.white.indigo-text Editar este Switche
+						a(href="#" data-activates="slide-options").disabled.button-create
+							i.material-icons more_vert
 					li.right
-						a(ng-click='delete(switche.id)').btn.white.red-text Eliminar este Switche
-	.content_ever.row.center-xs
-		.col-xs-12.start-xs.table__content
-			h4.light.grey-text.text-darken-2 
-				| Nombre del switche: 
-				| {{switche.name}}
-		.row.col-xs-12.no-padding
-			.row.col-md-6.col-xs-12
-				ul.collection.with-header.col-xs-12
-					li.collection-header.start-xs
-						h4 Equipos
-					li.collection-item Alvin
-					li.collection-item Alvin
-					li.collection-item Alvin
-					li.collection-item Alvin
-			.row.col-md-6.col-xs-12
-				ul.collection.with-header.col-xs-12
-					li.collection-header.start-xs
-						h4 Servidores
-					li.collection-item Alvin
-					li.collection-item Alvin
-					li.collection-item Alvin
-					li.collection-item Alvin
-			.row.col-md-6.col-xs-12
-				ul.collection.with-header.col-xs-12
-					li.collection-header.start-xs
-						h4 Switches
-					li.collection-item Alvin
-					li.collection-item Alvin
-					li.collection-item Alvin
-					li.collection-item Alvin
+						a(ng-click="verModulos()")
+							i.material-icons view_module
+		.col-xs-12.no-padding.transparent.progress.progress-load(style="margin:0px;")
+			.indeterminate.red.accent-2
+	.content_special.row.col-xs-12
+		//- Manejo de errores
+		.row.col-xs-12.center-xs.load
+			h3.light.grey-text.text-darken-2 Cargando informacion ...
+		//- Contenido del single
+		.row.col-xs-8.table__content.hide
+			ul.collection.with-header.col-xs-12.white.no-padding
+				li.collection-header.start-xs
+					h5.light.grey-text.text-darken-3 Conexciones de este servidor
+				li.collection-header.start-xs
+					pre {{servidor | json}}
+		.row.col-xs-4.table__content.hide(style="max-height:500px;")
+			ul.collection.with-header.col-xs-12.white.no-padding
+				li.collection-header.start-xs
+					h5.light.grey-text.text-darken-3 Informacion del servidor
+				li.collection-item 
+					b Nombre: 
+					| {{servidor.name}}
+				li.collection-item
+					b Modelo: 
+					| {{servidor.model}}
+				li.collection-item
+					b IP: 
+					| {{servidor.ip}}
+				li.collection-item
+					b mac: 
+					| {{servidor.mac}}
+				li.collection-item 
+					b Sistema Operativo: 
+					| {{servidor.so}}
+				li.collection-item 
+					b Descripcion: 
+					| {{servidor.description}}
+
+
+ul#slide-update.side-nav
+	.row.col-xs-12.indigo.middle-xs(style='height: 130px;')
+		.row.col-xs-11.no-padding
+			h3.light.white-text Editar equipo
+	.row.col-xs-12.no-padding.transparent.progress.progress-update.hide(style="margin:0px;")
+		.indeterminate.amber.accent-3
+	.row.col-xs-12.no-padding(style="margin-top:30px;")
+		form.col-xs-12
+			.input-field
+				input(id="name" type="text" placeholder="Nombre" ng-model="servidor.name")
+				label#name Nombre del servidor
+			.input-field
+				input(id="ip" type="text" placeholder="IP" ng-model="servidor.ip")
+				label#ip IP del servidor
+			.input-field
+				input(id="mac" type="text" placeholder="mac" ng-model="servidor.mac")
+				label#mac MAC
+			.input-field
+				input(id="so" type="text" placeholder="SO" ng-model="servidor.so")
+				label#so Sistema operativo del servidor
+			.input-field
+				input(id="description" type="text" placeholder="Descripción" ng-model="servidor.description")
+				label#description Descripción
+			.input-field
+				input(id="modelo" type="text" placeholder="Modelo" ng-model="servidor.modelo")
+				label#modelo Modelo del servidor
+			.input-field.row
+				input(type="submit" value="Crear" ng-click="update(servidor)").col-xs-12.btn.indigo.white-text
+
+
+ul#slide-options.side-nav
+	.row.col-xs-12.indigo.middle-xs(style='height: 130px;')
+		.row.col-xs-11.no-padding
+			h4.light.white-text Opciones
+	.row.col-xs-12.no-padding.transparent.progress.progress-update.hide(style="margin:0px;")
+		.indeterminate.amber.accent-3
+	.row.col-xs-12.no-padding(style="margin-top:30px;")
+		//- Cambiar color
+		.row.col-xs-12
+			h6.light.grey-text.text-darken-2 Cambiar color
+		.row.col-xs-12.divider
+
+		//- Cambiar Visivilidad
+		.row.col-xs-12
+			h6.light.grey-text.text-darken-2 Cambiar visibilidad
+		.row.col-xs-12.divider
+
+		//- Eliminar elemento
+		.row.col-xs-12
+			h6.light.grey-text.text-darken-2 Más opciones
+		.row.col-xs-12.center-xs
+			a(ng-click="delete()").col-xs-12.btn.z-depth-0.red Eliminar este equipo

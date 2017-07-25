@@ -1,18 +1,20 @@
 hermes.controller("single_equipos_controller", function($scope, Query, Equipos, $stateParams, Progres){
 
-	Query.getAll(Equipos.single, function(equipo){
+	var ruta = Equipos.single + $stateParams.id;
+
+	Query.getAll(ruta, function(equipo){
 		$scope.equipo = equipo.data;
 		Progres.loaded();
 	});
 
 	$scope.update = function(datos) {
 		Progres.progressloading();
-		Query.updateDates(Equipos.single, datos);
+		Query.updateDates(ruta, datos);
 	}
 	
 	$scope.delete = function(){
 		Progres.progressloading();
-		Query.killme(Equipos.single);
+		Query.killme(ruta);
 	}
 
 	$scope.verModulos = function(){
