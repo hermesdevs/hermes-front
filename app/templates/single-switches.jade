@@ -76,11 +76,9 @@ main
 					.row.col-xs-6.middle-xs.end-xs
 						a.text-indigo.uppercase.button-create(data-activates="agregar-equipo-al-sw") Agregar nuevo equipo
 					.row.col-xs-12.no-padding				
-						//- .col-xs-12.no-padding.transparent.progress(style="margin:0px;")
-						//- 	.indeterminate.red.accent-1
 						ul.collection.row.col-xs-12.no-padding.center-xs
-							li.collection-item.avatar.row.col-xs-12.middle-xs(ng-if='puertosEquipos.length > 0' ng-repeat='puerto in puertosEquipos')
-								div(id="{{ puerto.id }}").modal.modal-fixed-footer
+							li.collection-item.avatar.row.col-xs-12.middle-xs(ng-repeat='puerto in puertosEquipos')
+								div(id="#puerto{{ puerto.id }}").modal.modal-fixed-footer
 									.modal-content
 										h4 Modal header
 									.modal-footer
@@ -93,11 +91,11 @@ main
 									a(ui-sref='single_equipo({ id: equipo.id })')
 										b {{ equipo.name }}
 								.secondary-content.row.middle-xs.center-xs
-									a.grey-text.right.modal-trigger(href="#{{ puerto.id }}")
-										i.material-icons delete
+									a.grey-text.right.modal-trigger(data-target='puerto{{ puerto.id }}' modal)
+										i.material-icons delete 
 							li.collection-item.avatar.row.col-xs-12.center-xs(ng-if='puertosEquipos.length == 0')
 								h3.grey-text No hay puertos activos
-					.row.col-xs-12.center-xs.no-padding.progress-load				
+					.row.col-xs-12.center-xs.no-padding.progress-load-sigle				
 						.preloader-wrapper.small.active
 							.spinner-layer.spinner-green-only
 								.circle-clipper.left		
@@ -113,6 +111,35 @@ main
 						h5.grey-text.text-darken-2 Servidores
 					.row.col-xs-6.middle-xs.end-xs
 						a.text-indigo.uppercase(ng-click="createSwPu(2,1)") Agregar nuevo servidor						
+					.row.col-xs-12.no-padding				
+						ul.collection.row.col-xs-12.no-padding.center-xs
+							li.collection-item.avatar.row.col-xs-12.middle-xs(ng-if='puertosEquipos.length > 0' ng-repeat='puerto in puertosEquipos')
+								div(id="#puerto{{ puerto.id }}").modal.modal-fixed-footer
+									.modal-content
+										h4 Modal header
+									.modal-footer
+										.modal-action.modal-close.waves-effect.waves-green.btn-flat E
+								i.material-icons.white-text.circle.green info
+								p Al puerto: 
+									b {{ puerto.name }} 
+								|  esta conectado el 
+								p(ng-repeat='equipo in puerto.equipo') equipo: 
+									a(ui-sref='single_equipo({ id: equipo.id })')
+										b {{ equipo.name }}
+								.secondary-content.row.middle-xs.center-xs
+									a.grey-text.right.modal-trigger(href="#puerto{{ puerto.id }}")
+										i.material-icons delete 
+							li.collection-item.avatar.row.col-xs-12.center-xs(ng-if='puertosEquipos.length == 0')
+								h3.grey-text No hay puertos activos
+					.row.col-xs-12.center-xs.no-padding.progress-load-sigle				
+						.preloader-wrapper.small.active
+							.spinner-layer.spinner-green-only
+								.circle-clipper.left		
+									.circle
+								.gap-patch
+									.circle
+								.circle-clipper.right		
+									.circle
 				div.divider
 				.row.col-xs-12.middle-xs(style="padding-top:20px;padding-bottom:20px;")
 					.row.col-xs-6.middle-xs.start-xs
@@ -137,7 +164,9 @@ main
 				li.collection-item
 					b Ip: 
 					| {{switche.ip}}
-ul#agregar-equipo-al-sw.side-nav
+
+
+ul#agregar-equipo-al-sw.side-nav(ng-controller="add_equipos_switches")
 	.row.col-xs-12.indigo.middle-xs(style='height: 130px;')
 		.row.col-xs-11.no-padding
 			h4.light.white-text Agregar equipo 
@@ -153,3 +182,39 @@ ul#agregar-equipo-al-sw.side-nav
 				label#puertosMuchos.active Seleciona un puerto
 			.input-field.row
 				input(type="submit" value="Confirmar" ng-click="PuertoEquipo(relation)").col-xs-12.btn.z-depth-0.indigo.white-text
+
+ul#agregar-switche-al-sw.side-nav
+	.row.col-xs-12.indigo.middle-xs(style='height: 130px;')
+		.row.col-xs-11.no-padding
+			h4.light.white-text Agregar switche 
+	.row.col-xs-12.no-padding.transparent.progress.progress-update.hide(style="margin:0px;")
+		.indeterminate.amber.accent-3
+	.row.col-xs-12.no-padding(style="margin-top:30px;")
+		form.col-xs-12
+			.input-field
+				select(id="equipoMuchos" class="browser-default" ng-model='relation.element1')
+				label#equipoMuchos.active Seleciona un equipo
+			.input-field
+				select(id="puertosMuchos" class="browser-default" ng-model='relation.element2')
+				label#puertosMuchos.active Seleciona un puerto
+			.input-field.row
+				input(type="submit" value="Confirmar" ng-click="PuertoEquipo(relation)").col-xs-12.btn.z-depth-0.indigo.white-text
+
+ul#agregar-servidor-al-sw.side-nav
+	.row.col-xs-12.indigo.middle-xs(style='height: 130px;')
+		.row.col-xs-11.no-padding
+			h4.light.white-text Agregar servidores 
+	.row.col-xs-12.no-padding.transparent.progress.progress-update.hide(style="margin:0px;")
+		.indeterminate.amber.accent-3
+	.row.col-xs-12.no-padding(style="margin-top:30px;")
+		form.col-xs-12
+			.input-field
+				select(id="equipoMuchos" class="browser-default" ng-model='relation.element1')
+				label#equipoMuchos.active Seleciona un equipo
+			.input-field
+				select(id="puertosMuchos" class="browser-default" ng-model='relation.element2')
+				label#puertosMuchos.active Seleciona un puerto
+			.input-field.row
+				input(type="submit" value="Confirmar" ng-click="PuertoEquipo(relation)").col-xs-12.btn.z-depth-0.indigo.white-text
+
+

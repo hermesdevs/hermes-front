@@ -24,6 +24,10 @@ hermes.service("Progres", function(){
 		$(".progress-load").addClass("hide");
 	}
 
+	this.loaded_single = function(){
+		$(".progress-load-sigle").addClass("hide");
+	}
+
 	this.itsClear = function(argument) {
 		// no hay elementos que mostrar
 		$(".loadClear").removeClass("hide");

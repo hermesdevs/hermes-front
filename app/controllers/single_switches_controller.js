@@ -51,11 +51,18 @@ hermes.controller("switches_puertos_equipos", function($scope, Switches, $stateP
 		}
 
 		$scope.puertosEquipos = puertosEquipos.all;
-		Progres.loaded();
+		Progres.loaded_single();
 	});
 
-	$scope.PuertoEquipo = function(relation){
+
+});
+
+hermes.controller("add_equipos_switches", function($scope, Switches, $stateParams, Progres, Query, config){
+
+
+	$scope.CreatePuertoEquipo = function(relation){
 		Query.relation($stateParams.id, relation.element2, relation.element1);
 	}
 
 });
+
