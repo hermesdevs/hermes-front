@@ -14,7 +14,7 @@ hermes.controller("single_equipos_controller", function($scope, Query, Equipos, 
 	
 	$scope.delete = function(){
 		Progres.progressloading();
-		Query.killme(ruta);
+		// Query.killme(ruta);
 	}
 
 	$scope.verModulos = function(){

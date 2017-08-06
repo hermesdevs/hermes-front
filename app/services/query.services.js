@@ -45,11 +45,12 @@ hermes.service('Query', function($http, $window, config){
 		});
 	};
 
-	this.killme = function(urlDefine){
+	this.killme = function(urlDefine , goHome){
 		$http.delete(urlDefine)
 			.success(function (success) {
 		    	Materialize.toast('El elemento fue eliminado' , 4000);
 				console.log(success);
+		        $window.location.href= goHome;	
 			})
 			.error(function (error) {
 		    	Materialize.toast('Ocurrio un error al eliminar el elemento' , 4000);
@@ -59,7 +60,8 @@ hermes.service('Query', function($http, $window, config){
 
 	// switches //puerto
 	this.relation = function(switche, puerto, equipo) {
-		$http({
+		$http(
+		{
 	        url: config.databaseURL + config.switches + "/" + switche + config.puertos + "/" + puerto,
 	        method: "POST",
 	        headers:{ 
@@ -76,6 +78,7 @@ hermes.service('Query', function($http, $window, config){
 		        console.log(response.status);
 	    	}
 	    )
+
 		$http({
 	        url: config.databaseURL + config.equipos + "/" + equipo + config.puertos + "/" + puerto,
 	        method: "POST",
@@ -84,6 +87,7 @@ hermes.service('Query', function($http, $window, config){
 	        }
 	    }).then(
 		    function(response){
+		    	$(".progress-update").addClass("hide");
     	    	Materialize.toast('Se conecto el equipo ' + equipo + ' al puerto ' + puerto, 4000);
 		        console.log(JSON.stringify(response));
 		    }, 
@@ -92,6 +96,27 @@ hermes.service('Query', function($http, $window, config){
 		        console.log(response.status);
 	    	}
 	    );
+	};	
+
+	this.relationKill = function(switche, puerto, equipo){
+		$http.delete(config.databaseURL + config.equipos + "/" + equipo + config.puertos + "/" + puerto)
+			.success(function (success) {
+		    	Materialize.toast('El elemento puerto fue eliminado' , 4000);
+				console.log(success);
+			})
+			.error(function (error) {
+		    	Materialize.toast('Ocurrio un error al eliminar el elemento' , 4000);
+				console.log(error);
+			})
+		$http.delete(config.databaseURL + config.switches + "/" + switche + config.puertos + "/" + puerto)
+			.success(function (success) {
+		    	Materialize.toast('El elemento puerto fue eliminado' , 4000);
+				console.log(success);
+			})
+			.error(function (error) {
+		    	Materialize.toast('Ocurrio un error al eliminar el elemento' , 4000);
+				console.log(error);
+			})
 	};
 
 });

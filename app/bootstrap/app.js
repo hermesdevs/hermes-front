@@ -4,7 +4,6 @@ var hermes = angular.module('hermes', [
 ]);
 
 hermes.constant('config', {
-    apiKey: "AIzaSyB5iw0dc-qipE6iIEeoezD2oetkHh0s8ls",
     databaseURL: "http://hermes.api.dev",
     usuarios: "/usuarios",
     equipos: "/equipos",
@@ -17,7 +16,8 @@ hermes.constant('config', {
 
 hermes.constant('Switches', {
     general : "http://hermes.api.dev/switches",
-    single : "http://hermes.api.dev/switches/"
+    single : "http://hermes.api.dev/switches/",
+    home : "/#/switches",
 });
 
 hermes.constant('Servidores', {
@@ -34,3 +34,4 @@ hermes.constant('Puertos', {
     general : "http://hermes.api.dev/puertos",
     single : "http://hermes.api.dev/puertos/"
 });
+

@@ -40,8 +40,8 @@ gulp.task('Application', function () {
 gulp.task('watch', function () {
     gulp.watch('app/stylesheet/**/*.scss', ['Sass']);
     gulp.watch(appBootstrap, ['Application']);
-    gulp.watch('app/templates/**/*.jade', ['Templates']);
-    gulp.watch('app/templates/**/*.jade', ['IndexTemplates']);
+    gulp.watch('app/**/*.jade', ['Templates']);
+    gulp.watch('app/**/*.jade', ['IndexTemplates']);
     gulp.watch('app/templates/index.jade', ['IndexTemplates']);
 });
 

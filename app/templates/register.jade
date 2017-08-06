@@ -1,13 +1,24 @@
-.header_for_all.row.middle-xs.center-xs
-	form.header_for_all-content.col-xs-11.col-md-6.col-lg-8
-		.col-xs-12.no-padding.transparent.progress.progress-load.hide(style="margin:0px;")
-			.indeterminate.red.accent-1
-		h3.light.text-grey.text-darken-2.center-align(style="margin-top:40px;") Registrate
+.header_auth.row.bottom-xs.indigo
+	.row.col-xs-12.no-padding.transparent.progress.progress-update.hide(style="margin:0px;")
+		.indeterminate.red.accent-2
+
+.row.center-xs
+	form(name="registerForm").content_auth--form.column-xs.col-xs-11.col-md-10.col-lg-4
+		h3.light.text-grey.text-darken-2.center-align Hermes
 		.row.input-field.no-padding.left-align.start-xs
-			input#email.validate(type='email' ng-model='user.mail').col-xs-12
-			label(for='email') Correo Electrónico
+			input#name.validate(type="text" name="name" ng-model="user.name" ng-model-options="{ updateOn: 'blur' }" required).col-xs-12
+			label(for='name' ng-hide="registerForm.name.$dirty && registerForm.name.$error.required") Nombre y apellido
+			label(for='name' ng-show="registerForm.name.$dirty && registerForm.name.$error.required").amber-text.text-darken-1.active Nombre y apellido obligatorio
 		.row.input-field.no-padding.left-align.start-xs
-			input#password(type='password' ng-model='user.password').col-xs-12
-			label(for='password') Contraseña
+			input#mail.validate(type='email' name="mail" ng-model="user.mail" ng-model-options="{ updateOn: 'blur' }" required).col-xs-12
+			label(for='mail' ng-hide="registerForm.mail.$dirty && registerForm.mail.$error.required") Correo Electrónico
+			label(for='mail' ng-show="registerForm.mail.$dirty && registerForm.mail.$error.required").amber-text.text-darken-1.active Correo Electrónico obligatorio
+		.row.input-field.no-padding.left-align.start-xs
+			input#pass(type='password' name="pass" min="4" ng-model="user.pass" ng-model-options="{ updateOn: 'blur' }" required).col-xs-12
+			label(for='pass' ng-hide="registerForm.pass.$dirty && registerForm.pass.$error.required") Contraseña
+			label(for='pass' ng-show="registerForm.pass.$dirty && registerForm.pass.$error.required").amber-text.text-darken-1.active La contraseña es obligatoria
 		.row.input-field.no-padding
-			input#pass(type='submit', value='Crear cuenta' ng-click='resgiterUser(user)').col-xs-12.btn.indigo.white-text
+			input#quickstart-sign-up(type='submit', value='Registrate' ng-click='AuthRegister(user)' ng-disabled="!registerForm.$valid").col-xs-12.btn.indigo.white-text
+		.row.input-field.no-padding.center-align.center-xs
+			a(ui-sref="login") ¿Ya tienes una cuenta? Inicia session
+

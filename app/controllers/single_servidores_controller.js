@@ -1,5 +1,5 @@
 hermes.controller("single_servidores_controller", function($scope, $stateParams, Progres, Query, Servidores){
-	
+
 	var ruta = Servidores.single + $stateParams.id;
 
 	Query.getAll(ruta, function(servidor){

@@ -1,6 +1,7 @@
-hermes.controller("dashboard_controller", function($scope, Progres, Query, Auth , Switches, Servidores, Equipos, Puertos){
+hermes.controller("dashboard_controller", function(
+	$scope, Progres, Query, Auth, Switches, Servidores, Equipos, Puertos){
 
-	Auth.getUser(function(user){
+	Auth.getUser(localStorage.id, function(user){
 		$scope.user = user.data;
 		$scope.user.active = true;
 	})
@@ -29,8 +30,4 @@ hermes.controller("dashboard_controller", function($scope, Progres, Query, Auth 
     	Materialize.toast('Esta funcion aun no esta lista', 4000);
 	}
 
-	
 });
-
-
-

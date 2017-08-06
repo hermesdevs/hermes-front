@@ -1,18 +1,16 @@
-hermes.service('Auth', function($http, $window, $location, config ){
-	
-	this.setUserId = function(id) {
-		this.user = id;
-	};
+hermes.service('Auth', function($http, $window, $location, config , Progres, Session){
 
-	this.getUser = function(success, failure){
-		$http.get(config.databaseURL + config.usuarios + "/" + this.user)
+	var that = this;	
+
+	this.getUser = function(userID ,success, failure){
+		$http.get(config.databaseURL + config.usuarios + "/" + userID)
 			.success(success)
 			.error(failure)
 	};
 
-	this.updateUser = function(datos) {
+	this.updateUser = function(userID, datos) {
 		$http({
-	        url: config.databaseURL + config.usuarios + "/" + this.user,
+	        url: config.databaseURL + config.usuarios + "/" + userID,
 	        method: "PATCH",
 	        headers:{ 
 	        	'Content-Type': 'application/x-www-form-urlencoded' 
@@ -29,36 +27,71 @@ hermes.service('Auth', function($http, $window, $location, config ){
 		});
 	};
 
-	this.login = function(success, failure) {
-		$http.get(config.databaseURL + config.usuarios + "1")
-			.success(success)
-			.error(failure)
-	};
-
-	this.register = function(user, success, failure) {
+	this.login = function(user, success, failure) {
 		$http({
-	        url: config.databaseURL + config.usuarios,
+	        url: config.databaseURL + "/auth/login",
 	        method: "POST",
 	        headers:{ 
 	        	'Content-Type': 'application/x-www-form-urlencoded' 
 	        },
 	        data: $.param(user)
 	    }).then(
-		    function(response){
-	    		$(".progress-update").addClass("hide");
-    	    	Materialize.toast('El usuario fue creado', 4000);
-    	        var u = response.data.data;		
-    	        $window.location.href="#/dashboard";
-				localStorage.setItem("id", u.id);
-				localStorage.setItem("token", u.remember_token);
-				localStorage.setItem("state", "active");
-		        // console.log(JSON.stringify(response));
+		    function(success){
+    	        Session.saveUser(success.data.data[0].id)
+		        $window.location.href="#/dashboard";
 		    }, 
-	    	function (response){
-		    	Materialize.toast('Ocurrio un error al crear el usuario', 4000);
-		        console.log(JSON.stringify(response));
+	    	function (error){
+		        // console.log(JSON.stringify(error.data.status));
+		        if (error.status == "402") {
+			    	Materialize.toast('La contraseña es incorrecta', 3000);		        	
+			        document.getElementById("quickstart-sign-in").disabled = false;
+        			Progres.progressloaded();
+
+		        } else if(error.status == "404") {
+			    	Materialize.toast('No hay un usuario registrado con este correo', 6000);		        	
+			        document.getElementById("quickstart-sign-in").disabled = false;
+        			Progres.progressloaded();
+		        }else{
+			        console.log(JSON.stringify(error));
+			    	Materialize.toast('Ocurrio un error desconocido al intentar acceder', 6000);		        	
+			        document.getElementById("quickstart-sign-in").disabled = false;
+	    			Progres.progressloaded();
+		        }
+	    	}
+	    );
+	};
+
+	this.register = function(user, success, failure) {
+		$http({
+	        url: config.databaseURL + "/auth/register",
+	        method: "POST",
+	        headers:{ 
+	        	'Content-Type': 'application/x-www-form-urlencoded' 
+	        },
+	        data: $.param(user)
+	    }).then(
+		    function(success){
+    	    	Materialize.toast('Bienvenido - Ahora eres usuario de Hermes', 4000);
+				Progres.progressloaded();
+    	        Session.saveUser(success.data.data[0].id)	
+    	        $window.location.href="#/dashboard";
+		    }, 
+	    	function(error){
+		    	// Materialize.toast('Ocurrio un error al crear el usuario', 4000);
+		        console.log(JSON.stringify(error));
+		        if (error.status == "402") {
+			    	Materialize.toast('Este correo ya esta en uso por otro usuario', 3000);		        	
+			        document.getElementById("quickstart-sign-up").disabled = false;
+        			Progres.progressloaded();
+		        }else{
+			        console.log(JSON.stringify(error));
+			    	Materialize.toast('Ocurrio un error desconocido al intentar registrarte', 6000);
+			        document.getElementById("quickstart-sign-up").disabled = false;
+	    			Progres.progressloaded();
+		        }
 	    	}
 	    );
 	};
 
 });
+

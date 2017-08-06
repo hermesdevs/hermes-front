@@ -1,4 +1,54 @@
 include ./includes/nav.jade
+
+main
+	.row.col-xs-12.indigo
+		nav.transparent.z-depth-0.col-xs-6
+			h4.white-text.light(style='margin-top:17px;') Informacion de switche
+		nav.transparent.z-depth-0.col-xs-6(ng-controller="create_modal")
+			.nav-wrapper.transparent.z-depth-0
+				ul.right.hide-on-med-and-down
+					li.right
+						a(href="#" data-activates="slide-update").disabled.button-create.btn.white.indigo-text Editar
+					li.right
+						a(ng-click="delete()").disablessd
+							i.material-icons delete
+					li.right
+						a(ng-click="verModulos()")
+							i.material-icons view_module
+		.col-xs-12.no-padding.transparent.progress.progress-load(style="margin:0px;")
+			.indeterminate.red.accent-2
+	
+	.row.col-xs-12
+		.row.col-xs-12.center-xs.load
+			h3.light.grey-text.text-darken-2 Cargando informacion ...
+		//- Contenido del single
+		.row.col-xs-12.col-md-8.table__content.hide
+			ul.collection.with-header.col-xs-12.white.no-padding
+				li.collection-header.start-xs
+					h5.light.grey-text.text-darken-3 Conexciones de este switche
+				//- Switches -> Equipos
+				include ./switches/switches_puertos_equipos.jade
+				//- Switches -> Servidores
+				include ./switches/switches_puertos_servidores.jade
+				//- Switches -> Switches
+				include ./switches/switches_puertos_switches.jade
+		.row.col-xs-12.col-md-4.table__content.hide(style="max-height:500px;")
+			ul.collection.with-header.col-xs-12.white.no-padding
+				li.collection-header.start-xs
+					h5.light.grey-text.text-darken-3 Informacion del Switche
+				li.collection-item 
+					b Nombre: 
+					| {{switche.name}}
+				li.collection-item
+					b Modelo: 
+					| {{switche.modelo}}
+				li.collection-item 
+					b Sistema Operativo: 
+					| {{switche.so}}
+				li.collection-item
+					b Ip: 
+					| {{switche.ip}}
+
 ul#slide-update.side-nav
 	.row.col-xs-12.indigo.middle-xs(style='height: 130px;')
 		.row.col-xs-11.no-padding
@@ -21,200 +71,3 @@ ul#slide-update.side-nav
 				label#ip IP del switche
 			.input-field.row
 				input(type="submit" value="Actualizar" ng-click="update(switche)").col-xs-12.btn.indigo.white-text
-ul#slide-options.side-nav
-	.row.col-xs-12.indigo.middle-xs(style='height: 130px;')
-		.row.col-xs-11.no-padding
-			h4.light.white-text Opciones
-	.row.col-xs-12.no-padding.transparent.progress.progress-update.hide(style="margin:0px;")
-		.indeterminate.amber.accent-3
-	.row.col-xs-12.no-padding(style="margin-top:30px;")
-		//- Cambiar color
-		.row.col-xs-12
-			h6.light.grey-text.text-darken-2 Cambiar color
-		.row.col-xs-12.divider
-
-		//- Cambiar Visivilidad
-		.row.col-xs-12
-			h6.light.grey-text.text-darken-2 Cambiar visibilidad
-		.row.col-xs-12.divider
-
-		//- Eliminar elemento
-		.row.col-xs-12
-			h6.light.grey-text.text-darken-2 Más opciones
-		.row.col-xs-12.center-xs
-			a(ng-click="delete()").col-xs-12.btn.z-depth-0.red Eliminar este Switche
-main
-	.header_ever.row
-		nav.transparent.z-depth-0.col-xs-6
-			h4.white-text.light(style='margin-top:17px;') Informacion de switche
-		nav.transparent.z-depth-0.col-xs-6(ng-controller="create_modal")
-			.nav-wrapper.transparent.z-depth-0
-				ul.right.hide-on-med-and-down
-					li.right
-						a(href="#" data-activates="slide-update").disabled.button-create.btn.white.indigo-text Editar
-					li.right
-						a(href="#" data-activates="slide-options").disabled.button-create
-							i.material-icons more_vert
-					li.right
-						a(ng-click="verModulos()")
-							i.material-icons view_module
-		.col-xs-12.no-padding.transparent.progress.progress-load(style="margin:0px;")
-			.indeterminate.red.accent-2
-	.content_special.row.col-xs-12
-		//- Manejo de errores
-		.row.col-xs-12.center-xs.load
-			h3.light.grey-text.text-darken-2 Cargando informacion ...
-		//- Contenido del single
-		.row.col-xs-12.col-md-8.table__content.hide
-			ul.collection.with-header.col-xs-12.white.no-padding
-				li.collection-header.start-xs
-					h5.light.grey-text.text-darken-3 Conexciones de este switche				
-				.row.col-xs-12.middle-xs(ng-controller="switches_puertos_equipos" style="padding-top:20px;padding-bottom:20px;")
-					.row.col-xs-6.middle-xs.start-xs
-						.material-icons.grey-text.text-darken-2(style="margin-right:20px;") important_devices
-						h5.grey-text.text-darken-2 Equipos
-					.row.col-xs-6.middle-xs.end-xs
-						a.text-indigo.uppercase.button-create(data-activates="agregar-equipo-al-sw") Agregar nuevo equipo
-					.row.col-xs-12.no-padding				
-						ul.collection.row.col-xs-12.no-padding.center-xs
-							li.collection-item.avatar.row.col-xs-12.middle-xs(ng-repeat='puerto in puertosEquipos')
-								div(id="#puerto{{ puerto.id }}").modal.modal-fixed-footer
-									.modal-content
-										h4 Modal header
-									.modal-footer
-										.modal-action.modal-close.waves-effect.waves-green.btn-flat E
-								i.material-icons.white-text.circle.green info
-								p Al puerto: 
-									b {{ puerto.name }} 
-								|  esta conectado el 
-								p(ng-repeat='equipo in puerto.equipo') equipo: 
-									a(ui-sref='single_equipo({ id: equipo.id })')
-										b {{ equipo.name }}
-								.secondary-content.row.middle-xs.center-xs
-									a.grey-text.right.modal-trigger(data-target='puerto{{ puerto.id }}' modal)
-										i.material-icons delete 
-							li.collection-item.avatar.row.col-xs-12.center-xs(ng-if='puertosEquipos.length == 0')
-								h3.grey-text No hay puertos activos
-					.row.col-xs-12.center-xs.no-padding.progress-load-sigle				
-						.preloader-wrapper.small.active
-							.spinner-layer.spinner-green-only
-								.circle-clipper.left		
-									.circle
-								.gap-patch
-									.circle
-								.circle-clipper.right		
-									.circle
-				div.divider
-				.row.col-xs-12.middle-xs(style="padding-top:20px;padding-bottom:20px;")
-					.row.col-xs-6.middle-xs.start-xs
-						.material-icons.grey-text.text-darken-2(style="margin-right:20px;") dns
-						h5.grey-text.text-darken-2 Servidores
-					.row.col-xs-6.middle-xs.end-xs
-						a.text-indigo.uppercase(ng-click="createSwPu(2,1)") Agregar nuevo servidor						
-					.row.col-xs-12.no-padding				
-						ul.collection.row.col-xs-12.no-padding.center-xs
-							li.collection-item.avatar.row.col-xs-12.middle-xs(ng-if='puertosEquipos.length > 0' ng-repeat='puerto in puertosEquipos')
-								div(id="#puerto{{ puerto.id }}").modal.modal-fixed-footer
-									.modal-content
-										h4 Modal header
-									.modal-footer
-										.modal-action.modal-close.waves-effect.waves-green.btn-flat E
-								i.material-icons.white-text.circle.green info
-								p Al puerto: 
-									b {{ puerto.name }} 
-								|  esta conectado el 
-								p(ng-repeat='equipo in puerto.equipo') equipo: 
-									a(ui-sref='single_equipo({ id: equipo.id })')
-										b {{ equipo.name }}
-								.secondary-content.row.middle-xs.center-xs
-									a.grey-text.right.modal-trigger(href="#puerto{{ puerto.id }}")
-										i.material-icons delete 
-							li.collection-item.avatar.row.col-xs-12.center-xs(ng-if='puertosEquipos.length == 0')
-								h3.grey-text No hay puertos activos
-					.row.col-xs-12.center-xs.no-padding.progress-load-sigle				
-						.preloader-wrapper.small.active
-							.spinner-layer.spinner-green-only
-								.circle-clipper.left		
-									.circle
-								.gap-patch
-									.circle
-								.circle-clipper.right		
-									.circle
-				div.divider
-				.row.col-xs-12.middle-xs(style="padding-top:20px;padding-bottom:20px;")
-					.row.col-xs-6.middle-xs.start-xs
-						.material-icons.grey-text.text-darken-2(style="margin-right:20px;") view_comfy
-						h5.grey-text.text-darken-2 Otros Switches
-					.row.col-xs-6.middle-xs.end-xs
-						a.text-indigo.uppercase(ng-click="createSwPu(2,1)") Agregar nuevo Switche						
-				div.divider
-		.row.col-xs-12.col-md-4.table__content.hide(style="max-height:500px;")
-			ul.collection.with-header.col-xs-12.white.no-padding
-				li.collection-header.start-xs
-					h5.light.grey-text.text-darken-3 Informacion del Switche
-				li.collection-item 
-					b Nombre: 
-					| {{switche.name}}
-				li.collection-item
-					b Modelo: 
-					| {{switche.modelo}}
-				li.collection-item 
-					b Sistema Operativo: 
-					| {{switche.so}}
-				li.collection-item
-					b Ip: 
-					| {{switche.ip}}
-
-
-ul#agregar-equipo-al-sw.side-nav(ng-controller="add_equipos_switches")
-	.row.col-xs-12.indigo.middle-xs(style='height: 130px;')
-		.row.col-xs-11.no-padding
-			h4.light.white-text Agregar equipo 
-	.row.col-xs-12.no-padding.transparent.progress.progress-update.hide(style="margin:0px;")
-		.indeterminate.amber.accent-3
-	.row.col-xs-12.no-padding(style="margin-top:30px;")
-		form.col-xs-12
-			.input-field
-				select(id="equipoMuchos" class="browser-default" ng-model='relation.element1')
-				label#equipoMuchos.active Seleciona un equipo
-			.input-field
-				select(id="puertosMuchos" class="browser-default" ng-model='relation.element2')
-				label#puertosMuchos.active Seleciona un puerto
-			.input-field.row
-				input(type="submit" value="Confirmar" ng-click="PuertoEquipo(relation)").col-xs-12.btn.z-depth-0.indigo.white-text
-
-ul#agregar-switche-al-sw.side-nav
-	.row.col-xs-12.indigo.middle-xs(style='height: 130px;')
-		.row.col-xs-11.no-padding
-			h4.light.white-text Agregar switche 
-	.row.col-xs-12.no-padding.transparent.progress.progress-update.hide(style="margin:0px;")
-		.indeterminate.amber.accent-3
-	.row.col-xs-12.no-padding(style="margin-top:30px;")
-		form.col-xs-12
-			.input-field
-				select(id="equipoMuchos" class="browser-default" ng-model='relation.element1')
-				label#equipoMuchos.active Seleciona un equipo
-			.input-field
-				select(id="puertosMuchos" class="browser-default" ng-model='relation.element2')
-				label#puertosMuchos.active Seleciona un puerto
-			.input-field.row
-				input(type="submit" value="Confirmar" ng-click="PuertoEquipo(relation)").col-xs-12.btn.z-depth-0.indigo.white-text
-
-ul#agregar-servidor-al-sw.side-nav
-	.row.col-xs-12.indigo.middle-xs(style='height: 130px;')
-		.row.col-xs-11.no-padding
-			h4.light.white-text Agregar servidores 
-	.row.col-xs-12.no-padding.transparent.progress.progress-update.hide(style="margin:0px;")
-		.indeterminate.amber.accent-3
-	.row.col-xs-12.no-padding(style="margin-top:30px;")
-		form.col-xs-12
-			.input-field
-				select(id="equipoMuchos" class="browser-default" ng-model='relation.element1')
-				label#equipoMuchos.active Seleciona un equipo
-			.input-field
-				select(id="puertosMuchos" class="browser-default" ng-model='relation.element2')
-				label#puertosMuchos.active Seleciona un puerto
-			.input-field.row
-				input(type="submit" value="Confirmar" ng-click="PuertoEquipo(relation)").col-xs-12.btn.z-depth-0.indigo.white-text
-
-

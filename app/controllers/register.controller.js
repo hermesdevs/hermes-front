@@ -17,17 +17,10 @@ hermes.controller("register_controller", function($scope, Progres, Auth, $locati
 		"remember_token": randomString()	
 	};
 
-	$scope.resgiterUser = function(user) {
+	$scope.AuthRegister = function(user) {
 		Progres.progressloading();
 		Auth.register($scope.user);
-		Progres.loaded();
+        document.getElementById("quickstart-sign-up").disabled = true;
 	};
-
-	// for (var i = 1; i < 1000; i++) {
-	// 	Query.getUrl(config.databaseURL + config.usuarios + "/" + i);
-	// 	Query.killme();
-	// 	console.log("Eliminado el usuario"+i);
-	// }
-
 
 });
