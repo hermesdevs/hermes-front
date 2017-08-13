@@ -70,18 +70,9 @@ main
 
 		.row.col-xs-12
 			.load.row.col-xs-12.center-xs
-				.spinner-layer.spinner-yellow
-					.circle-clipper.left
-						.circle
-					.gap-patch
-						.circle
-					.circle-clipper.right
-						.circle
 				h3.light.grey-text Cargando ... 
-			.hide.loadClear.row.col-xs-12.center-xs
-				h3.light.grey-text No hay equipos registrados ... 
-			.hide.loadError.row.col-xs-12.center-xs
-				h3.light.grey-text Ocurrio un error, intentalo mas tarde... 
+			.row.col-xs-12.center-xs(ng-if="equipos.length==0")
+				h3.light.grey-text No hay equipos 
 
 
 ul#slide-out.side-nav

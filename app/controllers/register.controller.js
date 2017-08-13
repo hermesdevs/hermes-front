@@ -1,6 +1,5 @@
-hermes.controller("register_controller", function($scope, Progres, Auth, $location, Query,config){
+hermes.controller("register_controller", function($scope, Progres, Auth){
 
-	
 	function randomString(){
 		// body...
 		var text = " ";
@@ -17,7 +16,7 @@ hermes.controller("register_controller", function($scope, Progres, Auth, $locati
 		"remember_token": randomString()	
 	};
 
-	$scope.AuthRegister = function(user) {
+	$scope.AuthRegister = function(user){
 		Progres.progressloading();
 		Auth.register($scope.user);
         document.getElementById("quickstart-sign-up").disabled = true;

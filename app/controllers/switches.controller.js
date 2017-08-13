@@ -4,8 +4,6 @@ hermes.controller("switches_controller", function($scope, Switches, Progres, Que
 		$scope.switches = switches.data;
 		Progres.loaded();
 	})
-
-	$scope.sw = {};
 		
 	$scope.crearSW = function(datos) {
 		Query.sendNudes(Switches.general, datos);

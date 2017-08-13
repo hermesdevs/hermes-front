@@ -15,13 +15,13 @@ hermes.service('Query', function($http, $window, config){
 	        },
 	        data: $.param(datos)
 	    }).then(
-		    function(response){
+		    function(success){
     	    	Materialize.toast('El elemento fue creado', 4000);
-		        console.log(JSON.stringify(response));
+		        console.log(JSON.stringify(success));
 		    }, 
-	    	function (response){
+	    	function (err){
 		    	Materialize.toast('Ocurrio un error al crear el elemento', 4000);
-		        console.log(JSON.stringify(response));
+		        console.log(JSON.stringify(err));
 	    	}
 	    );
 	};
@@ -57,6 +57,26 @@ hermes.service('Query', function($http, $window, config){
 				console.log(error);
 			})
 	};
+
+	this.createRelation = function(element1, element2) {
+		$http({
+	        url: config.databaseURL + config.switches + "/" + element1 + config.equipos + "/" + element2,
+	        method: "POST",
+	        headers:{ 
+	        	'Content-Type': 'application/x-www-form-urlencoded' 
+	        }
+	    }).then(
+		    function(success){
+    	    	Materialize.toast("La operacion se completo con exito", 4000);
+		        console.log(JSON.stringify(success));
+		    }, 
+	    	function(error){
+    	    	Materialize.toast("Ocurrio un error desconocido", 4000);
+		        console.log(JSON.stringify(error));
+	    	}
+	    )
+
+	}
 
 	// switches //puerto
 	this.relation = function(switche, puerto, equipo) {

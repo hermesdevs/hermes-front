@@ -1,7 +1,7 @@
-hermes.controller("nav", function($scope,$window, Session){
-	
+hermes.controller("nav", function($scope, $window, Session){
+
 	$scope.logout = function(){
-		localStorage.removeItem("id");
+		Session.destroyUser()
         $window.location.href="#/";
 	}
 

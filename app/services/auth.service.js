@@ -73,7 +73,8 @@ hermes.service('Auth', function($http, $window, $location, config , Progres, Ses
 		    function(success){
     	    	Materialize.toast('Bienvenido - Ahora eres usuario de Hermes', 4000);
 				Progres.progressloaded();
-    	        Session.saveUser(success.data.data[0].id)	
+    	        console.log(success.data.data.id);
+    	        Session.saveUser(success.data.data.id);	
     	        $window.location.href="#/dashboard";
 		    }, 
 	    	function(error){

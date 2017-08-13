@@ -1,6 +1,6 @@
-hermes.service('Session', function($http,config,$window){
+hermes.service('Session', function($http, config){
 
-	this.saveUser = function(userId) {
+	this.saveUser = function(userId){
         localStorage.setItem("id", userId);
 		$http.get(config.databaseURL + config.usuarios + "/" + userId)
 			.success(function(userForLocal){
@@ -15,22 +15,30 @@ hermes.service('Session', function($http,config,$window){
 			})
 	}
 
+	this.destroyUser = function() {
+		var infoUser = ["id", "name", "mail", "state", "token"]
+		for (var i = 0; i < infoUser.length; i++) {
+	        localStorage.removeItem(infoUser[i]);
+		}
+		console.warn("Cerrando session");
+	}
+
 });
 
 
-(function(userId) {
+
+(function() {
 
 	var that = this;
 
-	this.userId = userId;
+	this.userId = localStorage.id;
 
 	var opciones = [undefined , 'number', 'string'];
 
-
 	if (typeof this.userId == opciones[0] || this.userId === undefined) {
         destroyUser();
-	    $(location).attr("href", "#/");	
-		console.warn("Session Clear");
+	    $(location).attr("href", "#/");
+		console.warn("El usuario no esta identidicado");
 	}
 	else if(isNaN(this.userId) === false && typeof this.userId !== undefined) {
 		if(window.location.hash === "#/login" || window.location.hash === "#/register" || window.location.hash === "#/") {
@@ -42,7 +50,6 @@ hermes.service('Session', function($http,config,$window){
 		console.warn("Algo salio muy mal");
 	}
 	
-
 	function observadorStateSession() {
 		setTimeout(function(){
 			if (isNaN(that.userId) === false && typeof that.userId != undefined) {
@@ -63,6 +70,6 @@ hermes.service('Session', function($http,config,$window){
 		console.warn("Necesitas iniciar sesion para obtener tus credenciales");
 	}
 
-})(localStorage.id);
+})();
 
 
