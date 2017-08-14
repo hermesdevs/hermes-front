@@ -29,14 +29,14 @@ ul#agregar-servidor-al-sw.side-nav(ng-controller="add_servidores_switches")
 	.row.col-xs-12.no-padding(style="margin-top:30px;")
 		form.col-xs-12
 			.input-field
-				select(id="servidoresOptions" class="browser-default" ng-model='relation.element1')
+				select(id="servidoresOptions" class="browser-default" ng-model='servidorPushModel.element1')
 					option(value="0" selected="selected" disabled) Seleccione una opcion
-				label#equiposOptions.active Seleciona un servidor
+				label#servidoresOptions.active Seleciona un servidor
 			.input-field
-				select(id="puertosOptions" class="browser-default" ng-model='relation.element2')
+				select(id="puertosOptions2" class="browser-default" ng-model='servidorPushModel.element2')
 					option(value="0"  selected="selected" disabled) Seleccione una opcion
-				label#puertosOptions.active Seleciona un puerto
+				label#puertosOptions2.active Seleciona un puerto
 			.input-field.row
-				input(type="submit" value="Confirmar" ng-click="PuertoServidor(relation)").col-xs-12.btn.z-depth-0.indigo.white-text
+				input(type="submit" value="Confirmar" ng-click="PuertoServidor(servidorPushModel)").col-xs-12.btn.z-depth-0.indigo.white-text
 
 

@@ -30,40 +30,39 @@ hermes.controller("switches_puertos_servidores", function($scope, Switches, $sta
 	var switcheEquipos = Switches.single + $stateParams.id + config.servidores;
 
 	Query.getAll(switcheEquipos,
-		function(equipo){			
-			var equipos = new Array;
+		function(servidor){			
+			var servidores = new Array;
 			var obtenerDatos = function(url) {
 				var consulta = $.ajax({
 					url: url,
 					async: false,
 					success: function (success) {
-						equipos.push(success.data);
+						servidores.push(success.data);
 					}
 				});
 				return consulta;
 			}
 
-			for (var i=0; i < equipo.data.length; i++){
-				obtenerDatos(config.databaseURL + config.equipos + "/" + equipo.data[i].id + config.puertos);
+			for (var i=0; i < servidor.data.length; i++){
+				obtenerDatos(config.databaseURL + config.servidores + "/" + servidor.data[i].id + config.puertos);
 			}
 			
-			var equiposPuertos = {
-				"all": equipos
+			var servidoresPuertos = {
+				"all": servidores
 			}
 			
-			console.log("Servidores", equipos);
 
-			$scope.puertosServidores = equiposPuertos.all;
+			$scope.puertosServidores = servidoresPuertos.all;
 			Progres.loaded_single("#servidoresload");
 
 		},
 		function(error){
 			if (error.code === 404){
-				var puertos = new Array;
-				var puertosEquipos = {
-					"all": puertos
+				var servidores = new Array;
+				var servidoresPuertos = {
+					"all": servidores
 				}
-				$scope.puertosServidores = puertosEquipos.all;
+				$scope.puertosServidores = servidoresPuertos.all;
 				Progres.loaded_single("#servidoresload");		
 			}
 		}
@@ -73,81 +72,41 @@ hermes.controller("switches_puertos_servidores", function($scope, Switches, $sta
 });
 
 
-hermes.controller("add_servidores_switches", function($scope, $stateParams, Switches, Equipos, config, Query, Progres){
+hermes.controller("add_servidores_switches", function($scope, $stateParams, config, Query, Progres){
 
-	var switcheEquipos = config.databaseURL + config.equipos + config.switches;
+	var switcheServidores = config.databaseURL + config.servidores + config.switches;
 
-	Query.getAll(switcheEquipos, function(equiposConstructor){				
-		// console.log(equiposConstructor)
-		for (var i = 0; i < equiposConstructor.length; i++){
-			// console.log(equiposConstructor[i].switche);
-			if (equiposConstructor[i].switche.length > 0) {
-				$("#servidoresOptions").append("<option value=" + equiposConstructor[i].id + " disabled>" + equiposConstructor[i].name + "</option>");
+	Query.getAll(switcheServidores, function(servidoresConstructor){
+		console.log("Servidores", servidoresConstructor);
+		for (var i = 0; i < servidoresConstructor.length; i++){
+			if (servidoresConstructor[i].switche != null) {
+				$("#servidoresOptions").append("<option value=" + servidoresConstructor[i].id + " disabled>" + servidoresConstructor[i].name + "</option>");
 			} else {
-				$("#servidoresOptions").append("<option value=" + equiposConstructor[i].id + ">" + equiposConstructor[i].name + "</option>");					
+				$("#servidoresOptions").append("<option value=" + servidoresConstructor[i].id + ">" + servidoresConstructor[i].name + "</option>");					
 			}
 		}
-
 	});
 
-	// var switcheEquipos = Switches.single + $stateParams.id + config.equipos;
-	
-	// Query.getAll(Equipos.general, function(equipos){
-	// 	Query.getAll(switcheEquipos, function(equiposDeEsteSwitche){
-	
-	// 		var equiposConstructor = new Array;
+	$scope.PuertoServidor = function(relation){
 
-	// 		var listarEquiposPorDefecto = function(device){
-	// 			var equiposPorDefecto = equiposConstructor.push(device);
-	// 			return equiposPorDefecto;
-	// 		}
-
-	// 		for (var i = 0; i < equipos.data.length; i++) {
-	// 			for (var y = 0; y < equiposDeEsteSwitche.data.length; y++) { 
-	// 				if (equipos.data[i].id === equiposDeEsteSwitche.data[y].id) {
-	// 					// console.log("El equipo " + equipos.data[i].id + " es igual al equipo " + equiposDeEsteSwitche.data[y].id)
-	// 					equipos.data[i].disabled = true;							
-	// 				} else {
-	// 					// console.log("El equipo " + equipos.data[i].id + " es distinto al equipo " + equiposDeEsteSwitche.data[y].id)
-	// 				}
-	// 			}
-	// 			listarEquiposPorDefecto(equipos.data[i]);
-	// 		}
-			
-	// 		// for (var i = 0; i < equiposConstructor.length; i++){
-	// 		// 	if (equiposConstructor[i].disabled) {
-	// 		// 		$("#servidoresOptions").append("<option value=" + equiposConstructor[i].id + " disabled>" + equiposConstructor[i].name + "</option>");
-	// 		// 	} else {
-	// 		// 		$("#servidoresOptions").append("<option value=" + equiposConstructor[i].id + ">" + equiposConstructor[i].name + "</option>");					
-	// 		// 	}
-	// 		// }
-
-	// 	});
-	// });
-
-	for (var p = 1; p < 49; p++){
-		$("#puertosOptions").append("<option value=" + p + "> Puerto fa0/" + p + "</option>");
-	}
-
-
-
-	$scope.PuertoEquipo = function(relation){
 		Progres.progressloading();
-		//1 agregar el equipos al swtiche (con el id del sw y el id del equipo) / si esta disponible 	
-		Query.createRelation(config.databaseURL + config.switches + "/" + $stateParams.id + config.equipos + "/" + relation.element1, 		    
+
+		Query.createRelation(config.databaseURL + config.switches + "/" + $stateParams.id + config.servidores + "/" + relation.element1,
 			function(success){
-    	    	Materialize.toast("El equipo se esta conectando al switche ...", 3000);
+    	    	Materialize.toast("El servidor se esta conectando al switche ...", 3000);
 		        console.log(JSON.stringify(success.data));
 		    } 
 		);
 
-		//2 "crear" el puerto (si no existe) / agregar (activar pues) el puerto al equipo // un puerto puede tener varios equipos pero no el mismo equipo
-		Query.createRelation(config.databaseURL + config.equipos + "/" + relation.element1 + config.puertos + "/" + relation.element2,
+		Query.createRelation(config.databaseURL + config.servidores + "/" + relation.element1 + config.puertos + "/" + relation.element2,
 			function(success){
-    	    	Materialize.toast("El equipo se conecto existosamente en el puerto " + relation.element2, 3000);
+    	    	Materialize.toast("El servidor se conecto existosamente en el puerto " + relation.element2, 3000);
 		        console.log(JSON.stringify(success.data));
 		    } 
 		);
+
+		Progres.progressloaded();
+
 	}
 
 });
