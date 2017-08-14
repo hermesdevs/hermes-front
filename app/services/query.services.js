@@ -58,85 +58,34 @@ hermes.service('Query', function($http, $window, config){
 			})
 	};
 
-	this.createRelation = function(element1, element2) {
+	this.createRelation = function(dataUri, success, error){
 		$http({
-	        url: config.databaseURL + config.switches + "/" + element1 + config.equipos + "/" + element2,
+	        url: dataUri,
 	        method: "POST",
 	        headers:{ 
 	        	'Content-Type': 'application/x-www-form-urlencoded' 
 	        }
-	    }).then(
-		    function(success){
-    	    	Materialize.toast("La operacion se completo con exito", 4000);
-		        console.log(JSON.stringify(success));
-		    }, 
-	    	function(error){
-    	    	Materialize.toast("Ocurrio un error desconocido", 4000);
-		        console.log(JSON.stringify(error));
-	    	}
-	    )
-
+	    })
+	    .success(success)
+	    .error(function(error){
+	    	Materialize.toast("Ocurrio un error desconocido", 4000);
+	        console.log(JSON.stringify(error.data));
+	    });
 	}
 
-	// switches //puerto
-	this.relation = function(switche, puerto, equipo) {
-		$http(
-		{
-	        url: config.databaseURL + config.switches + "/" + switche + config.puertos + "/" + puerto,
-	        method: "POST",
-	        headers:{ 
-	        	'Content-Type': 'application/x-www-form-urlencoded' 
-	        }
-	    }).then(
-		    function(response){
-    	    	Materialize.toast('Se activo el puerto ' + puerto + ' del switche ' + switche, 4000);
-		        console.log(JSON.stringify(response));
-		    }, 
-	    	function (response){
-		    	Materialize.toast('Ocurrio un error al activar el puerto ' + puerto + ' con el switche ' + switche, 4000);
-		        console.log(JSON.stringify(response));
-		        console.log(response.status);
-	    	}
-	    )
-
+	this.fatality = function(dataUri, success, error){
 		$http({
-	        url: config.databaseURL + config.equipos + "/" + equipo + config.puertos + "/" + puerto,
-	        method: "POST",
+	        url: dataUri,
+	        method: "DELETE",
 	        headers:{ 
 	        	'Content-Type': 'application/x-www-form-urlencoded' 
 	        }
-	    }).then(
-		    function(response){
-		    	$(".progress-update").addClass("hide");
-    	    	Materialize.toast('Se conecto el equipo ' + equipo + ' al puerto ' + puerto, 4000);
-		        console.log(JSON.stringify(response));
-		    }, 
-	    	function (response){
-		        console.log(JSON.stringify(response));
-		        console.log(response.status);
-	    	}
-	    );
-	};	
-
-	this.relationKill = function(switche, puerto, equipo){
-		$http.delete(config.databaseURL + config.equipos + "/" + equipo + config.puertos + "/" + puerto)
-			.success(function (success) {
-		    	Materialize.toast('El elemento puerto fue eliminado' , 4000);
-				console.log(success);
-			})
-			.error(function (error) {
-		    	Materialize.toast('Ocurrio un error al eliminar el elemento' , 4000);
-				console.log(error);
-			})
-		$http.delete(config.databaseURL + config.switches + "/" + switche + config.puertos + "/" + puerto)
-			.success(function (success) {
-		    	Materialize.toast('El elemento puerto fue eliminado' , 4000);
-				console.log(success);
-			})
-			.error(function (error) {
-		    	Materialize.toast('Ocurrio un error al eliminar el elemento' , 4000);
-				console.log(error);
-			})
+	    })
+	    .success(success)
+	    .error(function(error){
+	    	Materialize.toast("Ocurrio un error desconocido", 4000);
+	        console.log(JSON.stringify(error.data));
+	    });
 	};
 
 });

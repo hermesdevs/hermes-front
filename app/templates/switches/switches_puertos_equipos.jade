@@ -1,30 +1,22 @@
-style.
-	.element_ul{
-		padding-top:20px;
-		padding-bottom:20px;
-	}
-
-.row.col-xs-12.middle-xs.element_ul(ng-controller="switches_puertos_equipos")
-	.row.col-xs-6.middle-xs.start-xs
-		.material-icons.grey-text.text-darken-2(style="margin-right:20px;") important_devices
-		h5.grey-text.text-darken-2 Equipos
-	.row.col-xs-6.middle-xs.end-xs
-		a.text-indigo.uppercase.button-create(data-activates="agregar-equipo-al-sw") Agregar nuevo equipo
-	.row.col-xs-12.no-padding				
-		ul.collection.row.col-xs-12.no-padding.center-xs
-			li.collection-item.avatar.row.col-xs-12.middle-xs(ng-repeat='equipo in equiposPuertos')
-				i.material-icons.white-text.circle.green info
-				p El equipo:  
-					a(ui-sref='single_equipo({ id: equipo.id })')
-						b {{ equipo.name }} 
-				|  esta conectado al  
-				p(ng-repeat='puerto in equipo.puerto')  puerto:  
-					b {{ puerto.name }}
-				.secondary-content.row.middle-xs.center-xs
-					a.grey-text.right(ng-click="delete_relation(puerto.id , equipo.id)")
-						i.material-icons delete 
-			li.collection-item.avatar.row.col-xs-12.center-xs(ng-if='puertosEquipos.length == 0')
-				h4.grey-text.light No hay puertos activos
+.row.col-xs-12.no-padding.middle-xs(ng-controller="switches_puertos_equipos")
+	.row.col-xs-12.element_ul
+		.row.col-xs-6.middle-xs.start-xs
+			.material-icons.grey-text.text-darken-2(style="margin-right:20px;") important_devices
+			h5.grey-text.text-darken-2 Equipos
+		.row.col-xs-6.middle-xs.end-xs
+			a.text-indigo.uppercase.button-create(data-activates="agregar-equipo-al-sw") Agregar nuevo equipo
+	.element_special_item.row.col-xs-12.middle-xs.no-padding.grey.lighten-5(ng-hide='equiposPuertos.length === 0')		
+		.element_special_item--button.col-xs-5 Equipo
+		.element_special_item--button.col-xs-5 Puerto
+		.element_special_item--button.col-xs-2 Opciones
+	.element_special_item.row.col-xs-12.middle-xs.no-padding(ng-repeat='equipo in equiposPuertos')		
+		a.element_special_item--button.col-xs-5(ui-sref='single_equipo({ id: equipo.id })') {{ equipo.name }}
+		.row.col-xs-7.no-padding(ng-repeat='puerto in equipo.puerto') 
+			a.element_special_item--button.col-xs-9 {{ puerto.name }}
+			a.element_special_item--delete.col-xs-3(ng-click="delete_relation(puerto.id , equipo.id)")
+				i.material-icons delete 
+	li.collection-item.row.col-xs-12.center-xs.middle-xs.grey.lighten-5(ng-if='equiposPuertos.length === 0')
+		h4.grey-text.text-darken-1 No hay equipos asignados
 	#equiposload.row.col-xs-12.center-xs.no-padding			
 		preloader
 
@@ -37,7 +29,7 @@ ul#agregar-equipo-al-sw.side-nav(ng-controller="add_equipos_switches")
 	.row.col-xs-12.no-padding(style="margin-top:30px;")
 		form.col-xs-12
 			.input-field
-				select(id="equiposOptions" class="browser-default" ng-model='relation.element1' placeholder="Seleccione una opcion")
+				select(id="equiposOptions" class="browser-default" ng-model='relation.element1')
 					option(value="0" selected="selected" disabled) Seleccione una opcion
 				label#equiposOptions.active Seleciona un equipo
 			.input-field
@@ -46,3 +38,6 @@ ul#agregar-equipo-al-sw.side-nav(ng-controller="add_equipos_switches")
 				label#puertosOptions.active Seleciona un puerto
 			.input-field.row
 				input(type="submit" value="Confirmar" ng-click="PuertoEquipo(relation)").col-xs-12.btn.z-depth-0.indigo.white-text
+
+
+

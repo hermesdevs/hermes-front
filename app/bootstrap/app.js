@@ -17,17 +17,19 @@ hermes.constant('config', {
 hermes.constant('Switches', {
     general : "http://hermes.api.dev/switches",
     single : "http://hermes.api.dev/switches/",
-    home : "/#/switches",
+    home : "/#/switches"
 });
 
 hermes.constant('Servidores', {
     general : "http://hermes.api.dev/servidores",
-    single : "http://hermes.api.dev/servidores/"
+    single : "http://hermes.api.dev/servidores/",
+    home : "/#/servidores"
 });
 
 hermes.constant('Equipos', {
     general : "http://hermes.api.dev/equipos",
-    single : "http://hermes.api.dev/equipos/"
+    single : "http://hermes.api.dev/equipos/",
+    home : "/#/equipos"
 });
 
 hermes.constant('Puertos', {
