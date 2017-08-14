@@ -1,22 +1,113 @@
+//-------------------------------
+//- Menu de navegacion
+//-------------------------------
 include ./includes/nav.jade
 
 main
+	//-------------------------------
+	//- Barra de herramientas 
+	//-------------------------------
 	.header_ever.row
 		nav.transparent.z-depth-0.col-xs-6
-			h4.white-text(style='margin-top:16px;') Administrador
+			h4.white-text.light(style='margin-top:16px;') Administracion
 		nav.transparent.z-depth-0.col-xs-6(ng-controller="create_modal")
 			.nav-wrapper.transparent.z-depth-0
 				ul.right.hide-on-med-and-down
 					li.right
-						a(href='badges.html')
-							i.material-icons more_vert
+						a(href="#" data-activates="slide-out").button-create.btn.white.indigo-text Agrega nuevo
 					li.right
-						a(href='badges.html')
-							i.material-icons view_module
-					li.right
-						a(href='badges.html')
-							i.material-icons settings_ethernet
+						a()
+							i.material-icons print
+		.col-xs-12.no-padding.transparent.progress.progress-load(style="margin:0px;")
+			.indeterminate.red.accent-2
+	//-------------------------------
+	//- Contenedor principal
+	//-------------------------------	
 	.content_ever.row.center-xs
-		.column-xs.col-xs-12.center-xs
-			h3.light.grey-text Bueno emm ... 
-			h5.light.grey-text Segurisimo estamos trabajando en esto 
+		
+		//-------------------------------
+		//- Barra de control de acciones
+		//-------------------------------	
+		.row.col-xs-12.no-padding
+			nav.transparent.z-depth-0.col-xs-6.no-padding
+				.nav-wrapper
+					form
+						.input-field
+							input#search.grey-text.text-darken-2(type='search', placeholder='Busqueda rapida' required='' ng-model="busqueda")
+							label.label-icon(for='search')
+								i.grey-text.text-darken-2.material-icons search
+							i.material-icons close
+			nav.transparent.z-depth-0.col-xs-6
+				.nav-wrapper
+					ul.right.hide-on-med-and-down
+						li.right
+							a(ng-click="verModulos()").grey-text.text-darken-2
+								i.material-icons sort_by_alpha
+						li.right
+							a(ng-click="verModulos()").grey-text.text-darken-2
+								i.material-icons view_list
+						li.right
+							a.grey-text.text-darken-2 Usuarios en total {{usuarios.length}}
+		.row.divider.col-xs-12
+		
+		//-------------------------------
+		//- Barra de contenido
+		//-------------------------------	
+		.row.col-xs-12.table__content.no-padding
+			table.highlight
+				thead
+					tr
+						th.center Selc
+						th ID
+						th Nombre
+						th Correo
+						th Phone
+						th Administrador
+						th.center-xs Opciones
+				tbody
+					tr(ng-repeat='user in usuarios | filter:busqueda' style='cursor:pointer;')
+						td.center-xs
+							input(id='{{user.id}}' type='checkbox')
+							label(for='{{user.id}}')
+						td(ui-sref="single_user({ id: user.id })") {{user.id}}
+						td(ui-sref="single_user({ id: user.id })") {{user.name}}
+						td(ui-sref="single_user({ id: user.id })") {{user.mail}}
+						td(ui-sref="single_user({ id: user.id })") {{user.phone}}
+						td(ui-sref="single_user({ id: user.id })" ng-if="user.super_permission === 0") No 
+						td(ui-sref="single_user({ id: user.id })" ng-if="user.super_permission === 1") Si 
+						td.center-xs
+							a(ui-sref="single_user({ id: user.id })").center-xs
+								i.material-icons.indigo-text more
+				//-------------------------------
+				//- Mensajes de Error , Carga y Busqueda
+				//-------------------------------	
+		.row.col-xs-12
+			.load.row.col-xs-12.center-xs
+				h3.light.grey-text Cargando ... 
+			.row.col-xs-12.center-xs(ng-if="usuarios.length==0")
+				h3.light.grey-text No hay usuarios 
+		
+ul#slide-out.side-nav
+	.row.col-xs-12.indigo.middle-xs(style='height: 130px;margin-bottom:30px;')
+		.row.col-xs-12
+			h3.light.white-text Registrar un usuario
+	.row.col-xs-12
+		form(name="registerForm").col-xs-12
+			.row.input-field.no-padding.left-align.start-xs
+				input#name.validate(type="text" name="name" ng-model="userRegister.name" ng-model-options="{ updateOn: 'blur' }" required).col-xs-12
+				label(for='name' ng-hide="registerForm.name.$dirty && registerForm.name.$error.required") Nombre y apellido
+				label(for='name' ng-show="registerForm.name.$dirty && registerForm.name.$error.required").amber-text.text-darken-1.active Nombre y apellido obligatorio
+			.row.input-field.no-padding.left-align.start-xs
+				input#mail.validate(type='email' name="mail" ng-model="userRegister.mail" ng-model-options="{ updateOn: 'blur' }" required).col-xs-12
+				label(for='mail' ng-hide="registerForm.mail.$dirty && registerForm.mail.$error.required") Correo Electrónico
+				label(for='mail' ng-show="registerForm.mail.$dirty && registerForm.mail.$error.required").amber-text.text-darken-1.active Correo Electrónico obligatorio
+			.row.input-field.no-padding.left-align.start-xs
+				input#pass(type='password' name="pass" min="4" ng-model="userRegister.pass" ng-model-options="{ updateOn: 'blur' }" required).col-xs-12
+				label(for='pass' ng-hide="registerForm.pass.$dirty && registerForm.pass.$error.required") Contraseña
+				label(for='pass' ng-show="registerForm.pass.$dirty && registerForm.pass.$error.required").amber-text.text-darken-1.active La contraseña es obligatoria
+			.row.input-field.no-padding.left-align.start-xs
+				input#phone.validate(type="text" name="phone" ng-model="userRegister.phone" ng-model-options="{ updateOn: 'blur' }" required).col-xs-12
+				label(for='phone' ng-hide="registerForm.phone.$dirty && registerForm.phone.$error.required") Telefono
+				label(for='phone' ng-show="registerForm.phone.$dirty && registerForm.phone.$error.required").amber-text
+			.input-field.row
+				input#quickstart-sign-up(type='submit', value='Registrate' ng-click='AuthRegister(userRegister)' ng-disabled="!registerForm.$valid").col-xs-12.btn.indigo.white-text

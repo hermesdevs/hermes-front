@@ -37,3 +37,9 @@ hermes.constant('Puertos', {
     single : "http://hermes.api.dev/puertos/"
 });
 
+hermes.constant('User', {
+    general : "http://hermes.api.dev/usuarios",
+    single : "http://hermes.api.dev/usuarios/",
+    home : "/#/admin"
+});
+

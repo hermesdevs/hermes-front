@@ -51,7 +51,6 @@ hermes.controller("switches_puertos_servidores", function($scope, Switches, $sta
 				"all": servidores
 			}
 			
-
 			$scope.puertosServidores = servidoresPuertos.all;
 			Progres.loaded_single("#servidoresload");
 

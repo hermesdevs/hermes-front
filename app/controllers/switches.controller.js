@@ -12,7 +12,6 @@ hermes.controller("switches_controller", function($scope, Switches, Progres, Que
 	$scope.verModulos = function(){
     	Materialize.toast('Esta funcion aun no esta lista', 4000);
 	}
-
 	
 });
 

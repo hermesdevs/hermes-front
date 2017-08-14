@@ -28,6 +28,11 @@ hermes.config(function($stateProvider , $urlRouterProvider,$httpProvider){
             templateUrl: wherever_we_are() + 'view/register.html',
             controller:'register_controller'
         })
+        .state('register_admin', {
+            url: '/register/admin',
+            templateUrl: wherever_we_are() + 'view/register_admin.html',
+            controller:'register_admin_controller'
+        })
         // ------------ CONTROL -------------
         .state('dashboard', {
             url: '/dashboard',
@@ -65,6 +70,11 @@ hermes.config(function($stateProvider , $urlRouterProvider,$httpProvider){
             url: '/admin',
             templateUrl: wherever_we_are() + 'view/admin.html',
             controller:'admin_controller'
+        })
+        .state('single_user', {
+            url: '/admin/:id',
+            templateUrl: wherever_we_are() + 'view/single-user.html',
+            controller:'single_user_controller'
         })
         // ------------ CONTROL COMPLEJO -------------
         .state('net', {

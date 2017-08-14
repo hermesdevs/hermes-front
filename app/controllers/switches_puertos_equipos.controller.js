@@ -80,7 +80,7 @@ hermes.controller("add_equipos_switches", function($scope, $stateParams, Switche
 	var switcheEquipos = config.databaseURL + config.equipos + config.switches;
 
 	Query.getAll(switcheEquipos, function(equiposConstructor){				
-		// console.log(equiposConstructor)
+
 		for (var i = 0; i < equiposConstructor.length; i++){
 			// console.log(equiposConstructor[i].switche);
 			if (equiposConstructor[i].switche.length > 0) {
@@ -91,47 +91,6 @@ hermes.controller("add_equipos_switches", function($scope, $stateParams, Switche
 		}
 
 	});
-
-	// var switcheEquipos = Switches.single + $stateParams.id + config.equipos;
-	
-	// Query.getAll(Equipos.general, function(equipos){
-	// 	Query.getAll(switcheEquipos, function(equiposDeEsteSwitche){
-	
-	// 		var equiposConstructor = new Array;
-
-	// 		var listarEquiposPorDefecto = function(device){
-	// 			var equiposPorDefecto = equiposConstructor.push(device);
-	// 			return equiposPorDefecto;
-	// 		}
-
-	// 		for (var i = 0; i < equipos.data.length; i++) {
-	// 			for (var y = 0; y < equiposDeEsteSwitche.data.length; y++) { 
-	// 				if (equipos.data[i].id === equiposDeEsteSwitche.data[y].id) {
-	// 					// console.log("El equipo " + equipos.data[i].id + " es igual al equipo " + equiposDeEsteSwitche.data[y].id)
-	// 					equipos.data[i].disabled = true;							
-	// 				} else {
-	// 					// console.log("El equipo " + equipos.data[i].id + " es distinto al equipo " + equiposDeEsteSwitche.data[y].id)
-	// 				}
-	// 			}
-	// 			listarEquiposPorDefecto(equipos.data[i]);
-	// 		}
-			
-	// 		// for (var i = 0; i < equiposConstructor.length; i++){
-	// 		// 	if (equiposConstructor[i].disabled) {
-	// 		// 		$("#equiposOptions").append("<option value=" + equiposConstructor[i].id + " disabled>" + equiposConstructor[i].name + "</option>");
-	// 		// 	} else {
-	// 		// 		$("#equiposOptions").append("<option value=" + equiposConstructor[i].id + ">" + equiposConstructor[i].name + "</option>");					
-	// 		// 	}
-	// 		// }
-
-	// 	});
-	// });
-
-	for (var p = 1; p < 49; p++){
-		$("#puertosOptions").append("<option value=" + p + "> Puerto fa0/" + p + "</option>");
-	}
-
-
 
 	$scope.PuertoEquipo = function(relation){
 		Progres.progressloading();

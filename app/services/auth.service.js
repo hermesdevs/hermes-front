@@ -94,5 +94,68 @@ hermes.service('Auth', function($http, $window, $location, config , Progres, Ses
 	    );
 	};
 
+	this.registerAdmin = function(user, success, failure) {
+		$http({
+	        url: config.databaseURL + "/auth/register",
+	        method: "POST",
+	        headers:{ 
+	        	'Content-Type': 'application/x-www-form-urlencoded' 
+	        },
+	        data: $.param(user)
+	    }).then(
+		    function(success){
+    	    	Materialize.toast('Bienvenido - Ahora eres usuario administrador de Hermes', 4000);
+				Progres.progressloaded();
+    	        console.log(success.data.data.id);
+    	        Session.saveUser(success.data.data.id);	
+    	        $window.location.href="#/dashboard";
+		    }, 
+	    	function(error){
+		    	// Materialize.toast('Ocurrio un error al crear el usuario', 4000);
+		        console.log(JSON.stringify(error));
+		        if (error.status == "402") {
+			    	Materialize.toast('Este correo ya esta en uso por otro usuario', 3000);		        	
+			        document.getElementById("quickstart-sign-up").disabled = false;
+        			Progres.progressloaded();
+		        }else{
+			        console.log(JSON.stringify(error));
+			    	Materialize.toast('Ocurrio un error desconocido al intentar registrarte', 6000);
+			        document.getElementById("quickstart-sign-up").disabled = false;
+	    			Progres.progressloaded();
+		        }
+	    	}
+	    );
+	};
+
+	this.registerUser = function(user, success, failure) {
+		$http({
+	        url: config.databaseURL + "/auth/register",
+	        method: "POST",
+	        headers:{ 
+	        	'Content-Type': 'application/x-www-form-urlencoded' 
+	        },
+	        data: $.param(user)
+	    }).then(
+		    function(success){
+    	    	Materialize.toast('El usuario fue registrado', 4000);
+				Progres.progressloaded();
+		    }, 
+	    	function(error){
+		    	// Materialize.toast('Ocurrio un error al crear el usuario', 4000);
+		        console.log(JSON.stringify(error));
+		        if (error.status == "402") {
+			    	Materialize.toast('Este correo ya esta en uso por otro usuario', 3000);		        	
+			        document.getElementById("quickstart-sign-up").disabled = false;
+        			Progres.progressloaded();
+		        }else{
+			        console.log(JSON.stringify(error));
+			    	Materialize.toast('Ocurrio un error desconocido al intentar registrarte', 6000);
+			        document.getElementById("quickstart-sign-up").disabled = false;
+	    			Progres.progressloaded();
+		        }
+	    	}
+	    );
+	};
+
 });
 

@@ -8,6 +8,9 @@ nav.el_menu_lateral_mas_gonito_del_universo.column-xs(ng-controller='nav')
 	a.item_icon.row(ui-sref="dashboard")
 		.ii.row.center-xs.middle-xs.material-icons.grey-text.text-darken-2 dashboard
 		.pp.row.start-xs.middle-xs.grey-text.text-darken-2 Panel de control 
+	a.item_icon.row(ui-sref="admin" ng-if="typeUser > 0")
+		.ii.row.center-xs.middle-xs.material-icons.grey-text.text-darken-2 group
+		.pp.row.start-xs.middle-xs.grey-text.text-darken-2 Usuarios 
 	a.item_icon.row(ui-sref="servidores")
 		.ii.row.center-xs.middle-xs.material-icons.grey-text.text-darken-2 dns
 		.pp.row.start-xs.middle-xs.grey-text.text-darken-2 Servidores 
