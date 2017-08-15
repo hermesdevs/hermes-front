@@ -16,7 +16,7 @@ main
 					li.right
 						a(href="#" data-activates="slide-out").button-create.btn.white.indigo-text Agrega nuevo
 					li.right
-						a()
+						a(ng-click="printPDF()")
 							i.material-icons print
 		.col-xs-12.no-padding.transparent.progress.progress-load(style="margin:0px;")
 			.indeterminate.red.accent-2
@@ -53,6 +53,16 @@ main
 		//-------------------------------
 		//- Barra de contenido
 		//-------------------------------	
+		.row.col-xs-12.red.hide
+			h1 aqui hay una tabla
+			table(style="width:100%;")#tablaSwitche
+				thead
+					tr
+						th Identificador
+						th Nombre
+						th Modelo
+						th SO
+						th IP
 		.row.col-xs-12.table__content.no-padding
 			table.highlight
 				thead
